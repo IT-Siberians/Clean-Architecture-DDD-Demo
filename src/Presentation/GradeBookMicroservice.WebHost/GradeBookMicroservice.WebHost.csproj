@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\GradeBookMicroservice.Application.Models\GradeBookMicroservice.Application.Models.csproj" />
+    <ProjectReference Include="..\..\Application\GradeBookMicroservice.Application.Services\GradeBookMicroservice.Application.Services.csproj" />
+    <ProjectReference Include="..\..\Domain\GradeBookMicroservice.Domain.Entities\GradeBookMicroservice.Domain.Entities.csproj" />
+    <ProjectReference Include="..\..\Domain\GradeBookMicroservice.Domain.Repositories.Abstractions\GradeBookMicroservice.Domain.Repositories.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Domain\GradeBookMicroservice.Domain.Services\GradeBookMicroservice.Domain.Services.csproj" />
+    <ProjectReference Include="..\..\Domain\GradeBookMicroservice.Domain.ValueObjects\GradeBookMicroservice.Domain.ValueObjects.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\GradeBookMicroservice.Infrastructure.EntityFramework\GradeBookMicroservice.Infrastructure.EntityFramework.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\GradeBookMicroservice.Insractructure.Repositories.Implementations\GradeBookMicroservice.Insractructure.Repositories.Implementations.csproj" />
+  </ItemGroup>
+
+</Project>

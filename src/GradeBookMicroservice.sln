@@ -1,0 +1,91 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{C47F024B-F61A-4A81-847E-8E1E61ED5A4D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{A04ACF78-79CF-4247-BA38-066452E392ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{9703BFDD-8ABF-4919-BCC9-E5843917FCD2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{84BC76B1-85F7-4A02-BAA4-9C77867C206B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBookMicroservice.Domain.Entities", "Domain\GradeBookMicroservice.Domain.Entities\GradeBookMicroservice.Domain.Entities.csproj", "{DF3FBF1A-C85C-4030-A588-8EF91ACF80FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBookMicroservice.Domain.Repositories.Abstractions", "Domain\GradeBookMicroservice.Domain.Repositories.Abstractions\GradeBookMicroservice.Domain.Repositories.Abstractions.csproj", "{4E0A5678-1996-4DF0-8DA0-8B73AB7CD06C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBookMicroservice.Application.Services", "Application\GradeBookMicroservice.Application.Services\GradeBookMicroservice.Application.Services.csproj", "{A3CD205E-9585-4078-A486-9D56302D477B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBookMicroservice.Application.Models", "Application\GradeBookMicroservice.Application.Models\GradeBookMicroservice.Application.Models.csproj", "{EDD14928-34F2-4719-B44F-F7C0BD632826}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBookMicroservice.Infrastructure.EntityFramework", "Infrastructure\GradeBookMicroservice.Infrastructure.EntityFramework\GradeBookMicroservice.Infrastructure.EntityFramework.csproj", "{4AFF5B95-4ABC-417D-9EA6-01FD55934F16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBookMicroservice.Insractructure.Repositories.Implementations", "Infrastructure\GradeBookMicroservice.Insractructure.Repositories.Implementations\GradeBookMicroservice.Insractructure.Repositories.Implementations.csproj", "{53E285C9-5708-41C3-A9D3-5F6027CE6D76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBookMicroservice.WebHost", "Presentation\GradeBookMicroservice.WebHost\GradeBookMicroservice.WebHost.csproj", "{C736019C-5FF0-42E7-ADE1-272D74AD53A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{06C05EB9-DFFE-4B3D-A6BA-1F94EF9C058E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBookMicroservice.Domain.ValueObjects", "Domain\GradeBookMicroservice.Domain.ValueObjects\GradeBookMicroservice.Domain.ValueObjects.csproj", "{9D437DD1-86D7-4CD1-9590-FD90520B51CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBookMicroservice.Domain.Services", "Domain\GradeBookMicroservice.Domain.Services\GradeBookMicroservice.Domain.Services.csproj", "{5371E717-AD1A-47A9-9FCE-1E8C3AF58064}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF3FBF1A-C85C-4030-A588-8EF91ACF80FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF3FBF1A-C85C-4030-A588-8EF91ACF80FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF3FBF1A-C85C-4030-A588-8EF91ACF80FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF3FBF1A-C85C-4030-A588-8EF91ACF80FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E0A5678-1996-4DF0-8DA0-8B73AB7CD06C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E0A5678-1996-4DF0-8DA0-8B73AB7CD06C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E0A5678-1996-4DF0-8DA0-8B73AB7CD06C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E0A5678-1996-4DF0-8DA0-8B73AB7CD06C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3CD205E-9585-4078-A486-9D56302D477B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3CD205E-9585-4078-A486-9D56302D477B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3CD205E-9585-4078-A486-9D56302D477B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3CD205E-9585-4078-A486-9D56302D477B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDD14928-34F2-4719-B44F-F7C0BD632826}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD14928-34F2-4719-B44F-F7C0BD632826}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD14928-34F2-4719-B44F-F7C0BD632826}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDD14928-34F2-4719-B44F-F7C0BD632826}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AFF5B95-4ABC-417D-9EA6-01FD55934F16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AFF5B95-4ABC-417D-9EA6-01FD55934F16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AFF5B95-4ABC-417D-9EA6-01FD55934F16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AFF5B95-4ABC-417D-9EA6-01FD55934F16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53E285C9-5708-41C3-A9D3-5F6027CE6D76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53E285C9-5708-41C3-A9D3-5F6027CE6D76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53E285C9-5708-41C3-A9D3-5F6027CE6D76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53E285C9-5708-41C3-A9D3-5F6027CE6D76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C736019C-5FF0-42E7-ADE1-272D74AD53A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C736019C-5FF0-42E7-ADE1-272D74AD53A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C736019C-5FF0-42E7-ADE1-272D74AD53A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C736019C-5FF0-42E7-ADE1-272D74AD53A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D437DD1-86D7-4CD1-9590-FD90520B51CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D437DD1-86D7-4CD1-9590-FD90520B51CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D437DD1-86D7-4CD1-9590-FD90520B51CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D437DD1-86D7-4CD1-9590-FD90520B51CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5371E717-AD1A-47A9-9FCE-1E8C3AF58064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5371E717-AD1A-47A9-9FCE-1E8C3AF58064}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5371E717-AD1A-47A9-9FCE-1E8C3AF58064}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5371E717-AD1A-47A9-9FCE-1E8C3AF58064}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DF3FBF1A-C85C-4030-A588-8EF91ACF80FD} = {C47F024B-F61A-4A81-847E-8E1E61ED5A4D}
+		{4E0A5678-1996-4DF0-8DA0-8B73AB7CD06C} = {C47F024B-F61A-4A81-847E-8E1E61ED5A4D}
+		{A3CD205E-9585-4078-A486-9D56302D477B} = {A04ACF78-79CF-4247-BA38-066452E392ED}
+		{EDD14928-34F2-4719-B44F-F7C0BD632826} = {A04ACF78-79CF-4247-BA38-066452E392ED}
+		{4AFF5B95-4ABC-417D-9EA6-01FD55934F16} = {9703BFDD-8ABF-4919-BCC9-E5843917FCD2}
+		{53E285C9-5708-41C3-A9D3-5F6027CE6D76} = {9703BFDD-8ABF-4919-BCC9-E5843917FCD2}
+		{C736019C-5FF0-42E7-ADE1-272D74AD53A6} = {84BC76B1-85F7-4A02-BAA4-9C77867C206B}
+		{9D437DD1-86D7-4CD1-9590-FD90520B51CE} = {C47F024B-F61A-4A81-847E-8E1E61ED5A4D}
+		{5371E717-AD1A-47A9-9FCE-1E8C3AF58064} = {C47F024B-F61A-4A81-847E-8E1E61ED5A4D}
+	EndGlobalSection
+EndGlobal
