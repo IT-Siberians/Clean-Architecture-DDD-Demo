@@ -1,6 +1,9 @@
-﻿namespace GradeBookMicroservice.Domain.Entities.Base;
+﻿using GradeBookMicroservice.Domain.ValueObjects;
 
-public class Person(Guid id) : Entity<Guid>(id)
+namespace GradeBookMicroservice.Domain.Entities.Base;
+
+public class Person(Guid id, PersonName name) : Entity<Guid>(id)
 {
-
+    private readonly PersonName _name = name;
+    public PersonName Name => _name;
 }
