@@ -13,7 +13,7 @@ public class PersonName
             throw new ArgumentException("Name must contain only letters or whitespaces", nameof(name));
         if(name.Count(с => char.IsWhiteSpace(с)) > 5)
             throw new ArgumentException("Name must contain less than 5 whitespaces", nameof(name));
-        
+    
 
         Name = name;
     }
