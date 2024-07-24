@@ -1,6 +1,6 @@
 ﻿namespace GradeBookMicroservice.Domain.Entities;
 
-public class Class1
+public class Person(Guid id) : Entity<Guid>(id)
 {
 
 }
