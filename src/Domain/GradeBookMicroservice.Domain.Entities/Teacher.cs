@@ -17,14 +17,20 @@ public class Teacher(Guid id, PersonName name, IEnumerable<Lesson> lessons, IEnu
     }
     public void TeachLesson(Lesson lesson)
     {
+        lesson.Teach();
+        if(_lessons.Contains(lesson))
+            throw new InvalidOperationException("Can not teach already teached lesson");
         _lessons = _lessons.Append(lesson);
     }
-    public void GradeStudent(Student student, int mark, Lesson lesson, string? comment=null)
+    public void GradeStudent(Student student, Mark mark, Lesson lesson, string? comment=null)
     {
-        var grade = new Grade(this, student, lesson, comment);
-        _grades = _grades.Append(grade);
+        if(!_lessons.Contains(lesson))
+            throw new InvalidOperationException("Can not grade not teached lesson");
+        if(_grades.FirstOrDefault(gr => gr.Student == student && gr.Lesson == lesson)!=null)
+            throw new InvalidOperationException("Can not grade already graded lesson");
+        var grade = new Grade(this, student, lesson,mark, comment);
         student.GetGrade(grade);
-
+        _grades = _grades.Append(grade);
     }
 
 }
