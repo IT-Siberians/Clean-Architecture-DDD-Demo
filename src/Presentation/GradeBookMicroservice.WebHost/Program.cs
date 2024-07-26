@@ -1,6 +1,7 @@
 using GradeBookMicroservice.Application.Services;
 using GradeBookMicroservice.Application.Services.Base;
 using GradeBookMicroservice.Application.Services.Mapping;
+using GradeBookMicroservice.Domain.Entities;
 using GradeBookMicroservice.Domain.Repositories.Abstractions;
 using GradeBookMicroservice.Insractructure.Repositories.Implementations.InMemory;
 
@@ -14,6 +15,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IGroupsRepository, InMemoryGroupRepository>();
 builder.Services.AddSingleton<IGroupsApplicationService, GroupsApplicationService>();
+builder.Services.AddSingleton<IRepository<Student,Guid>, InMemoryRepository<Student,Guid>>();
+builder.Services.AddSingleton<IStudentsApplicationService, StudentsApplicationService>();
+builder.Services.AddSingleton<IRepository<Teacher, Guid>, InMemoryRepository<Teacher,Guid>>();
+builder.Services.AddSingleton<ITeachersApplicationService, TeachersApplicationService>();
 builder.Services.AddAutoMapper(typeof(Program), typeof(GroupMapping));
 
 var app = builder.Build();

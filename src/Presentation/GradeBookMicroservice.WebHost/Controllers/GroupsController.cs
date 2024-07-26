@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using GradeBookMicroservice.Application.Models.Create;
 using GradeBookMicroservice.Application.Services.Base;
+using GradeBookMicroservice.WebHost.Requests.Group;
+using GradeBookMicroservice.WebHost.Responses.Group;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GradeBookMicroservice.WebHost;
+namespace GradeBookMicroservice.WebHost.Controllers;
 [ApiController]
 [Route("api/v1/[controller]")]
 public class GroupsController(IGroupsApplicationService groupsApplicationService, IMapper mapper) : ControllerBase

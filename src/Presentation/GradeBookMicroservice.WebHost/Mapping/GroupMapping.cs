@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using GradeBookMicroservice.Application.Models;
 using GradeBookMicroservice.Application.Models.Create;
+using GradeBookMicroservice.WebHost.Requests.Group;
+using GradeBookMicroservice.WebHost.Responses.Group;
 
 namespace GradeBookMicroservice.WebHost.Mapping;
 

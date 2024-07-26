@@ -1,4 +1,4 @@
-﻿namespace GradeBookMicroservice.WebHost;
+﻿namespace GradeBookMicroservice.WebHost.Responses.Group;
 
 public class GroupShortResponse
 {

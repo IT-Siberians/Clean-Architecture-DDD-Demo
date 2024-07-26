@@ -1,4 +1,4 @@
-﻿namespace GradeBookMicroservice.WebHost;
+﻿namespace GradeBookMicroservice.WebHost.Requests.Group;
 
 public class CreateGroupRequest
 {
