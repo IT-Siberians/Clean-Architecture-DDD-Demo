@@ -2,6 +2,6 @@
 
 public class CreateStudentModel : PersonCreateModel
 {
-    public required GroupModel Group {get; init;}
+    public required Guid GroupId {get; init;}
 
 }

@@ -4,7 +4,7 @@ using GradeBookMicroservice.Domain.ValueObjects;
 
 namespace GradeBookMicroservice.Domain.Entities;
 
-public class Group(GroupName name, string description, IEnumerable<Student> students) : Entity<Guid>
+public class Group(GroupName name, string description, IEnumerable<Student> students) : Entity<Guid>(Guid.NewGuid())
 {
     private IEnumerable<Student> _students = students;
     private GroupName _name = name;

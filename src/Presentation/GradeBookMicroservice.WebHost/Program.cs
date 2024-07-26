@@ -1,3 +1,9 @@
+using GradeBookMicroservice.Application.Services;
+using GradeBookMicroservice.Application.Services.Base;
+using GradeBookMicroservice.Application.Services.Mapping;
+using GradeBookMicroservice.Domain.Repositories.Abstractions;
+using GradeBookMicroservice.Insractructure.Repositories.Implementations.InMemory;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +12,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<IGroupsRepository, InMemoryGroupRepository>();
+builder.Services.AddSingleton<IGroupsApplicationService, GroupsApplicationService>();
+builder.Services.AddAutoMapper(typeof(Program), typeof(GroupMapping));
 
 var app = builder.Build();
 

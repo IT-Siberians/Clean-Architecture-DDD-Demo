@@ -1,4 +1,4 @@
-﻿namespace GradeBookMicroservice.Insractructure.Repositories.Implementations;
+﻿namespace GradeBookMicroservice.Insractructure.Repositories.Implementations.InMemory;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -6,7 +6,7 @@ using GradeBookMicroservice.Domain.Entities.Base;
 using GradeBookMicroservice.Domain.Repositories.Abstractions;
 public class InMemoryRepository<TEntity, TId>(IEnumerable<TEntity> entities) : IRepository<TEntity, TId> where TEntity : Entity<TId> where TId : struct
 {
-    private List<TEntity> _entities = entities.ToList();
+    protected List<TEntity> Entities = entities.ToList();
 
     public InMemoryRepository() : this([])
     {
@@ -14,13 +14,13 @@ public class InMemoryRepository<TEntity, TId>(IEnumerable<TEntity> entities) : I
     }
     public Task<TEntity> AddAsync(TEntity entity)
     {
-        _entities.Add(entity);
+        Entities.Add(entity);
         return Task.FromResult(entity);
     }
 
     public Task DeleteAsync(TEntity entity)
     {
-        _entities.Remove(entity);
+        Entities.Remove(entity);
         return Task.CompletedTask;
 
     }
@@ -33,19 +33,19 @@ public class InMemoryRepository<TEntity, TId>(IEnumerable<TEntity> entities) : I
     }
 
 
-    public Task<IEnumerable<TEntity>> GetAllAsync() => Task.FromResult(_entities.AsEnumerable());
+    public Task<IEnumerable<TEntity>> GetAllAsync() => Task.FromResult(Entities.AsEnumerable());
 
 
-    public Task<TEntity?> GetByIdAsync(TId id) => Task.FromResult(_entities.FirstOrDefault(x => x.Id.Equals(id)));
+    public Task<TEntity?> GetByIdAsync(TId id) => Task.FromResult(Entities.FirstOrDefault(x => x.Id.Equals(id)));
 
 
     public Task UpdateAsync(TEntity entity)
     {
-        var entityToUpdate = _entities.FirstOrDefault(x => x.Id.Equals(entity.Id));
+        var entityToUpdate = Entities.FirstOrDefault(x => x.Id.Equals(entity.Id));
         if(entityToUpdate is null)
             return Task.CompletedTask;
-        var index = _entities.IndexOf(entityToUpdate);
-        _entities[index] = entity;
+        var index = Entities.IndexOf(entityToUpdate);
+        Entities[index] = entity;
         return Task.CompletedTask;
     }
 }

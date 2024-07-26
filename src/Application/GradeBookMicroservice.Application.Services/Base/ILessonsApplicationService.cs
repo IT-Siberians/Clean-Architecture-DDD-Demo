@@ -8,7 +8,7 @@ public interface ILessonsApplicationService
 {
     Task<IEnumerable<LessonModel>> GetAllLessonsAsync();
     Task<Lesson?> GetLessonByIdAsync(Guid id);
-    Task<LessonModel?> CreateLessonAsync(CreateLessonModel lessonInfo)
+    Task<LessonModel?> CreateLessonAsync(CreateLessonModel lessonInfo);
     Task UpdateLessonAsync(LessonModel lesson);
     Task DeleteLessonAsync(Guid id);
 }

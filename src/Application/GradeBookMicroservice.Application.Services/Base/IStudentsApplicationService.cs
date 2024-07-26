@@ -6,9 +6,9 @@ namespace GradeBookMicroservice.Application.Services;
 
 public interface IStudentsApplicationService
 {
-    Task<IEnumerable<Student>> GetAllStudentsAsync();
-    Task<Student?> GetStudentByIdAsync(Guid id);
-    Task<StudentModel>? AddStudentAsync(CreateStudentModel studentInfo);
+    Task<IEnumerable<StudentModel>> GetAllStudentsAsync();
+    Task<StudentModel?> GetStudentByIdAsync(Guid id);
+    Task<StudentModel?> AddStudentAsync(CreateStudentModel studentInfo);
     Task UpdateStudent(StudentModel student);
     Task DeleteStudent(Guid id);
 }
