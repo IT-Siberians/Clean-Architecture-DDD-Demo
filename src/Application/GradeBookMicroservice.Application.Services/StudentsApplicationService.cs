@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using GradeBookMicroservice.Application.Models;
 using GradeBookMicroservice.Application.Models.Create;
+using GradeBookMicroservice.Application.Models.Student;
 using GradeBookMicroservice.Domain.Entities;
 using GradeBookMicroservice.Domain.Repositories.Abstractions;
 using GradeBookMicroservice.Domain.ValueObjects;

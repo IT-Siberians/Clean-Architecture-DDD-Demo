@@ -1,4 +1,6 @@
-﻿namespace GradeBookMicroservice.Application.Models;
+﻿using GradeBookMicroservice.Application.Models.Student;
+
+namespace GradeBookMicroservice.Application.Models.Group;
 
 public class GroupModel : IModel<Guid>
 {

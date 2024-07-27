@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GradeBookMicroservice.Application.Models;
+using GradeBookMicroservice.Application.Models.Student;
 using GradeBookMicroservice.Domain.Entities;
 
 namespace GradeBookMicroservice.Application.Services.Mapping;

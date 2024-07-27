@@ -1,4 +1,7 @@
-﻿namespace GradeBookMicroservice.Application.Models.Lesson;
+﻿using GradeBookMicroservice.Application.Models.Group;
+using GradeBookMicroservice.Application.Models.Teacher;
+
+namespace GradeBookMicroservice.Application.Models.Lesson;
 
 public class LessonModel : IModel<Guid>
 {

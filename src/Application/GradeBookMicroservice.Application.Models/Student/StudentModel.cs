@@ -1,4 +1,8 @@
-﻿namespace GradeBookMicroservice.Application.Models;
+﻿using GradeBookMicroservice.Application.Models.Grade;
+using GradeBookMicroservice.Application.Models.Group;
+using GradeBookMicroservice.Application.Models.Lesson;
+
+namespace GradeBookMicroservice.Application.Models.Student;
 
 public class StudentModel : PersonModel
 {

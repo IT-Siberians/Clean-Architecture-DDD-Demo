@@ -1,5 +1,4 @@
-﻿using GradeBookMicroservice.Application.Models;
-using GradeBookMicroservice.Application.Models.Create;
+﻿using GradeBookMicroservice.Application.Models.Teacher;
 
 namespace GradeBookMicroservice.Application.Services.Base;
 

@@ -2,7 +2,7 @@
 using GradeBookMicroservice.Application.Models.Lesson;
 using GradeBookMicroservice.Domain.Entities;
 
-namespace GradeBookMicroservice.Application.Services;
+namespace GradeBookMicroservice.Application.Services.Mapping;
 
 public class LessonMapping : Profile
 {

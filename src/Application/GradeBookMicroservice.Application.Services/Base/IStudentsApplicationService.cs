@@ -1,6 +1,6 @@
-﻿using GradeBookMicroservice.Application.Models;
-using GradeBookMicroservice.Application.Models.Create;
-using GradeBookMicroservice.Domain.Entities;
+﻿using GradeBookMicroservice.Application.Models.Create;
+using GradeBookMicroservice.Application.Models.Student;
+
 
 namespace GradeBookMicroservice.Application.Services;
 

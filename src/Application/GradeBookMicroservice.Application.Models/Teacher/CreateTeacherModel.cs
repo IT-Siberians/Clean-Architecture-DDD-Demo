@@ -1,4 +1,4 @@
-﻿namespace GradeBookMicroservice.Application.Models.Create;
+﻿namespace GradeBookMicroservice.Application.Models.Teacher;
 
 public class CreateTeacherModel : PersonCreateModel
 {

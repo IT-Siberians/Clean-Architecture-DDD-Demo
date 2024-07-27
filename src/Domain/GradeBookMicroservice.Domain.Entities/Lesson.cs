@@ -3,7 +3,7 @@ using GradeBookMicroservice.Domain.ValueObjects;
 
 namespace GradeBookMicroservice.Domain.Entities;
 
-public class Lesson(Group group, Teacher teacher, LessonTopic topic, string desctiption, DateTime classTime, LessonStatus status) : Entity<Guid>
+public class Lesson(Group group, Teacher teacher, LessonTopic topic, string desctiption, DateTime classTime, LessonStatus status) : Entity<Guid>(Guid.NewGuid())
 {
     private Group _group = group;
     private Teacher _teacher = teacher;
