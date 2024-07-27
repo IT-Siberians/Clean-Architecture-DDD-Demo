@@ -10,5 +10,6 @@ public interface IGroupsApplicationService
     Task<GroupModel?> CreateGroupAsync(CreateGroupModel groupInfo);
     Task UpdateGroupAsync(GroupModel group);
     Task DeleteGroupAsync(Guid id);
+    Task<bool> EnrollStudentAsync(EnrollStudentModel enrollmentInformation);
 
 }

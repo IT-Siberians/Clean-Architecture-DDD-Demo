@@ -12,6 +12,7 @@ public class GroupMapping : Profile
         CreateMap<CreateGroupRequest, CreateGroupModel>();
         CreateMap<GroupModel, GroupShortResponse>();
         CreateMap<GroupModel, GroupDetailedResponse>();
+        CreateMap<EnrollStudentRequest, EnrollStudentModel>();
     }
 
 }

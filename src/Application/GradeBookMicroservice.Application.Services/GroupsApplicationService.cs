@@ -7,7 +7,9 @@ using GradeBookMicroservice.Domain.ValueObjects;
 
 namespace GradeBookMicroservice.Application.Services;
 
-public class GroupsApplicationService(IGroupsRepository repository, IMapper mapper) : IGroupsApplicationService
+public class GroupsApplicationService(IGroupsRepository repository,
+                                         IRepository<Student,Guid> studentsRepository, 
+                                         IMapper mapper) : IGroupsApplicationService
 {
 
     public async Task<GroupModel?> CreateGroupAsync(CreateGroupModel groupInfo)
@@ -25,6 +27,21 @@ public class GroupsApplicationService(IGroupsRepository repository, IMapper mapp
         if(group==null)
             return;
         await repository.DeleteAsync(group);
+    }
+
+    public async Task<bool> EnrollStudentAsync(EnrollStudentModel enrollmentInformation)
+    {
+        var group = await repository.GetByIdAsync(enrollmentInformation.GroupId);
+        if(group is null)
+            return false;
+        var student = await studentsRepository.GetByIdAsync(enrollmentInformation.StudentId);
+        if(student is null)
+            return false;
+        if(group.Students.FirstOrDefault(st => st.Id == student.Id) is not null)
+            return false;
+        group.AddStudent(student);
+        await repository.UpdateAsync(group);
+        return true;
     }
 
     public async Task<IEnumerable<GroupModel>> GetAllGroupsAsync() 
