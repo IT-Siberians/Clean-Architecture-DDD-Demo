@@ -10,7 +10,6 @@
     <Folder Include="Grade/" />
     <Folder Include="Lesson/" />
     <Folder Include="Student/" />
-    <Folder Include="Teacher/" />
   </ItemGroup>
 
 </Project>

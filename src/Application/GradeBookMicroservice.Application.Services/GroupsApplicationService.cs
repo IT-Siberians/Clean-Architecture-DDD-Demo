@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Runtime.CompilerServices;
+using AutoMapper;
 using GradeBookMicroservice.Application.Models.Group;
 using GradeBookMicroservice.Application.Services.Abstractions;
 using GradeBookMicroservice.Domain.Entities;
@@ -8,13 +9,12 @@ using GradeBookMicroservice.Domain.ValueObjects;
 namespace GradeBookMicroservice.Application.Services;
 
 public class GroupsApplicationService(IGroupsRepository repository,
-                                         IRepository<Student,Guid> studentsRepository, 
                                          IMapper mapper) : IGroupsApplicationService
 {
 
     public async Task<GroupModel?> CreateGroupAsync(CreateGroupModel groupInfo)
     {
-        if(await repository.GetGroupByNameAsync(groupInfo.Name)!=null)
+        if(await repository.GetGroupByNameAsync(groupInfo.Name) is not null)
             return null;
         var group = new Group(new GroupName(groupInfo.Name), groupInfo.Description);
         await repository.AddAsync(group);
@@ -24,7 +24,7 @@ public class GroupsApplicationService(IGroupsRepository repository,
     public async Task DeleteGroupAsync(Guid id)
     {
         var group = await repository.GetByIdAsync(id);
-        if(group==null)
+        if(group is null)
             return;
         await repository.DeleteAsync(group);
     }
@@ -35,19 +35,19 @@ public class GroupsApplicationService(IGroupsRepository repository,
     public async Task<GroupModel?> GetGroupByIdAsync(Guid id)
     {
         var group = await repository.GetByIdAsync(id);
-        return group == null ? null : mapper.Map<GroupModel>(group);
+        return group is  null ? null : mapper.Map<GroupModel>(group);
     }
 
     public async Task<GroupModel?> GetGroupByNameAsync(string name)
     {
         var group = await repository.GetGroupByNameAsync(name);
-        return group == null ? null : mapper.Map<GroupModel>(group);
+        return group is null ? null : mapper.Map<GroupModel>(group);
     }
 
     public async Task UpdateGroupAsync(GroupModel group)
     {
         var entity = await repository.GetByIdAsync(group.Id);
-        if(entity==null)
+        if(entity is null)
             return;
         var model = mapper.Map<Group>(group);
         await repository.UpdateAsync(model);

@@ -12,6 +12,7 @@ public class TeacherMapping : Profile
         CreateMap<TeacherModel, TeacherShortResponse>();
         CreateMap<TeacherModel, TeacherDetailedResponse>();
         CreateMap<TeacherCreateRequest, CreateTeacherModel>();
+        CreateMap<TeachLessonRequest, TeachLessonModel>();
     }
 
 }

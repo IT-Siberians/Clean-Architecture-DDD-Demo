@@ -22,6 +22,7 @@ public class LessonsApplicationService(IRepository<Lesson, Guid> lessonsReposito
             return null;
         var lesson = new Lesson(group, teacher, lessonInfo.Description, lessonInfo.ClassTime, new LessonTopic(lessonInfo.Topic));
         lesson = await lessonsRepository.AddAsync(lesson);
+        await teachersRepository.UpdateAsync(teacher);
         return mapper.Map<LessonModel>(lesson);
     }
 

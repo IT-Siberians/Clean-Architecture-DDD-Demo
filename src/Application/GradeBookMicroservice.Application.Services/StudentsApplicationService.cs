@@ -13,19 +13,20 @@ public class StudentsApplicationService(IRepository<Student, Guid> studentReposi
     public async Task<StudentModel?> AddStudentAsync(CreateStudentModel studentInfo)
     {
         var group = await groupRepository.GetByIdAsync(studentInfo.GroupId);
-        if(group == null)
+        if(group is null)
             return null;
         var student = new Student(new PersonName(studentInfo.Name), group);
         student= await studentRepository.AddAsync(student);
-        if(student==null)
+        if(student is null)
             return null;
+        await groupRepository.UpdateAsync(group);    
         return mapper.Map<StudentModel>(student);
     }
 
     public async Task DeleteStudent(Guid id)
     {
         var student = await studentRepository.GetByIdAsync(id);
-        if(student==null)
+        if(student is null)
             return;
         await studentRepository.DeleteAsync(student);
     }
@@ -37,14 +38,14 @@ public class StudentsApplicationService(IRepository<Student, Guid> studentReposi
     public async Task<StudentModel?> GetStudentByIdAsync(Guid id)
     {
         var student = await studentRepository.GetByIdAsync(id);
-        if(student==null)
+        if(student is null)
             return null;
         return mapper.Map<StudentModel>(student);
     }
 
     public async Task UpdateStudent(StudentModel student)
     {
-        if(await studentRepository.GetByIdAsync(student.Id)==null)
+        if(await studentRepository.GetByIdAsync(student.Id) is null)
             return;
         var entity = mapper.Map<Student>(student);
         await studentRepository.UpdateAsync(entity);
