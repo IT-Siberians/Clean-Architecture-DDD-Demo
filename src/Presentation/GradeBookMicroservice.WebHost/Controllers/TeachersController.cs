@@ -22,6 +22,8 @@ public class TeachersController(ITeachersApplicationService teachersApplicationS
     public async Task<IActionResult> GetTeacherById(Guid id)
     {
         var teacher = await teachersApplicationService.GetTeacherByIdAsync(id);
+        if(teacher is null)
+            return NotFound(id);
         return Ok(mapper.Map<TeacherDetailedResponse>(teacher));
     }
     [HttpPost]

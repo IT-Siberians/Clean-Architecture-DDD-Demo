@@ -44,7 +44,7 @@ public class Teacher(Guid id, PersonName name, IEnumerable<Lesson> lessons, IEnu
     {
         if(lesson.State!=LessonStatus.New)
             throw new LessonAlreadyTeachedException(lesson);
-        if(_lessons.Contains(lesson))
+        if(!_lessons.Contains(lesson))
             _lessons = _lessons.Append(lesson);
 
     }
