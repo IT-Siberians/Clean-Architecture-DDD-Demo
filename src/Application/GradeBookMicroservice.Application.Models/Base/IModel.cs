@@ -1,7 +1,7 @@
-﻿namespace GradeBookMicroservice.Application.Models;
+﻿namespace GradeBookMicroservice.Application.Models.Base;
 
 public interface IModel<out TId> where TId : struct
 {
-    public TId Id {get; }
+    public TId Id { get; }
 
 }

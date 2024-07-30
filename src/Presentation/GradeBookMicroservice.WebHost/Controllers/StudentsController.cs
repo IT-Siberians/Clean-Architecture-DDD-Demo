@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using GradeBookMicroservice.Application.Models.Create;
-using GradeBookMicroservice.Application.Services;
+using GradeBookMicroservice.Application.Models.Student;
+using GradeBookMicroservice.Application.Services.Abstractions;
 using GradeBookMicroservice.WebHost.Requests.Student;
 using GradeBookMicroservice.WebHost.Responses.Student;
 using Microsoft.AspNetCore.Mvc;

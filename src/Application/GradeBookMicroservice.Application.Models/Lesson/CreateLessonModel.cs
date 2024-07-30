@@ -1,4 +1,6 @@
-﻿namespace GradeBookMicroservice.Application.Models.Lesson;
+﻿using GradeBookMicroservice.Application.Models.Base;
+
+namespace GradeBookMicroservice.Application.Models.Lesson;
 
 public class CreateLessonModel : ICreateModel
 {

@@ -1,6 +1,6 @@
 ﻿using GradeBookMicroservice.Application.Models.Group;
 
-namespace GradeBookMicroservice.Application.Services.Base;
+namespace GradeBookMicroservice.Application.Services.Abstractions;
 
 public interface IGroupsApplicationService
 {
@@ -10,6 +10,4 @@ public interface IGroupsApplicationService
     Task<GroupModel?> CreateGroupAsync(CreateGroupModel groupInfo);
     Task UpdateGroupAsync(GroupModel group);
     Task DeleteGroupAsync(Guid id);
-    Task<bool> EnrollStudentAsync(EnrollStudentModel enrollmentInformation);
-
 }

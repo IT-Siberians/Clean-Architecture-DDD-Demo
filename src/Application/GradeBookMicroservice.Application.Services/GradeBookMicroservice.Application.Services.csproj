@@ -4,6 +4,7 @@
     <ProjectReference Include="..\..\Domain\GradeBookMicroservice.Domain.Services\GradeBookMicroservice.Domain.Services.csproj" />
     <ProjectReference Include="..\..\Domain\GradeBookMicroservice.Domain.Entities\GradeBookMicroservice.Domain.Entities.csproj" />
     <ProjectReference Include="..\GradeBookMicroservice.Application.Models\GradeBookMicroservice.Application.Models.csproj" />
+    <ProjectReference Include="..\GradeBookMicroservice.Application.Services.Abstractions\GradeBookMicroservice.Application.Services.Abstractions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using GradeBookMicroservice.Application.Models.Teacher;
 
-namespace GradeBookMicroservice.Application.Services.Base;
+namespace GradeBookMicroservice.Application.Services.Abstractions;
 
 public interface ITeachersApplicationService
 {

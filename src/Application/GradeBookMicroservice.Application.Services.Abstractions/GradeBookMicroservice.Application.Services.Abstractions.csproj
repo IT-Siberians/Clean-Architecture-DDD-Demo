@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\GradeBookMicroservice.Domain.ValueObjects\GradeBookMicroservice.Domain.ValueObjects.csproj" />
+    <ProjectReference Include="..\GradeBookMicroservice.Application.Models\GradeBookMicroservice.Application.Models.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using GradeBookMicroservice.Application.Models.Group;
-using GradeBookMicroservice.Application.Services;
-using GradeBookMicroservice.Application.Services.Base;
+using GradeBookMicroservice.Application.Services.Abstractions;
 using GradeBookMicroservice.WebHost.Requests.Group;
 using GradeBookMicroservice.WebHost.Responses.Group;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +9,6 @@ namespace GradeBookMicroservice.WebHost.Controllers;
 [ApiController]
 [Route("api/v1/[controller]")]
 public class GroupsController(IGroupsApplicationService groupsApplicationService,
-                                IStudentsApplicationService studentsApplicationService,
                                 IMapper mapper) : ControllerBase
 {
     [HttpGet]
@@ -53,21 +51,4 @@ public class GroupsController(IGroupsApplicationService groupsApplicationService
         return Created("", mapper.Map<GroupShortResponse>(group));
 
     }
-    [HttpPost("enroll")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-    public async Task<IActionResult> EnrollStudent(EnrollStudentRequest request)
-    {
-        if(await groupsApplicationService.GetGroupByIdAsync(request.GroupId)==null)
-            return BadRequest("Group not found");
-        if(await studentsApplicationService.GetStudentByIdAsync(request.StudentId)==null)
-            return BadRequest("Student not found");
-        var result = await groupsApplicationService.EnrollStudentAsync(mapper.Map<EnrollStudentModel>(request));
-        if(result==false)
-            return BadRequest("Student already enrolled");
-        return Ok();
-
-    }
-
-
 }

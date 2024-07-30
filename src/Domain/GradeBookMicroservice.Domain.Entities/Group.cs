@@ -1,5 +1,6 @@
 ﻿using System.Collections.Immutable;
 using GradeBookMicroservice.Domain.Entities.Base;
+using GradeBookMicroservice.Domain.Entities.Exceptions;
 using GradeBookMicroservice.Domain.ValueObjects;
 
 namespace GradeBookMicroservice.Domain.Entities;
@@ -18,8 +19,8 @@ public class Group(GroupName name, string description, IEnumerable<Student> stud
     }
     public void AddStudent(Student student)
     {
-        if(_students.Contains (student))
-         throw new InvalidOperationException("Student already in group");
+        if (_students.Contains(student))
+            throw new DoubleEnrollmentException(student, this);
         _students = _students.Append(student);
     }
 

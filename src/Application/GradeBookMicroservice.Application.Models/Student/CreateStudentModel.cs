@@ -1,7 +1,7 @@
-﻿namespace GradeBookMicroservice.Application.Models.Create;
+﻿namespace GradeBookMicroservice.Application.Models.Student;
 
 public class CreateStudentModel : PersonCreateModel
 {
-    public required Guid GroupId {get; init;}
+    public required Guid GroupId { get; init; }
 
 }

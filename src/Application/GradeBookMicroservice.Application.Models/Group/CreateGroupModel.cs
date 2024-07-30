@@ -1,4 +1,6 @@
-﻿namespace GradeBookMicroservice.Application.Models.Group;
+﻿using GradeBookMicroservice.Application.Models.Base;
+
+namespace GradeBookMicroservice.Application.Models.Group;
 
 public class CreateGroupModel : ICreateModel
 {

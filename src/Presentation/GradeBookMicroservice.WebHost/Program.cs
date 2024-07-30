@@ -1,5 +1,5 @@
 using GradeBookMicroservice.Application.Services;
-using GradeBookMicroservice.Application.Services.Base;
+using GradeBookMicroservice.Application.Services.Abstractions;
 using GradeBookMicroservice.Application.Services.Mapping;
 using GradeBookMicroservice.Domain.Entities;
 using GradeBookMicroservice.Domain.Repositories.Abstractions;

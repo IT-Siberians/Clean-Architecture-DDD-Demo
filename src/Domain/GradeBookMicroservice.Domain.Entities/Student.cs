@@ -1,5 +1,6 @@
 ﻿using System.Collections.Immutable;
 using GradeBookMicroservice.Domain.Entities.Base;
+using GradeBookMicroservice.Domain.Entities.Exceptions;
 using GradeBookMicroservice.Domain.ValueObjects;
 
 namespace GradeBookMicroservice.Domain.Entities;
@@ -19,24 +20,22 @@ public class Student(Guid id, PersonName name, Group group, IEnumerable<Lesson> 
     public void AttendLesson(Lesson lesson)
     {
         if(lesson.State!=LessonStatus.Teached)
-            throw new InvalidOperationException("Can not visit not teached lesson");
+            throw new LessonNotStartedException(lesson);
         if(lesson.Group!=Group)
-            throw new InvalidOperationException("Can not visit lesson in different group");
+            throw new AnotherGroupLessonException(this, lesson.Group);
         if(_lessons.Contains(lesson))
-            throw new InvalidOperationException("Can not visit lesson twice");
+            throw new DoubleVisitedLessonException(lesson,this);
         _lessons = _lessons.Append(lesson);
 
     }
     internal void GetGrade(Grade grade)
     {
         if(grade.Student!=this)
-            throw new InvalidOperationException("Can not get grade from different student");
+            throw new AnotherStudentGradeException(this, grade);
         if(!_lessons.Contains(grade.Lesson))
-            throw new InvalidOperationException("Can not receive grade for not visited lesson");
-        if(grade.Lesson.State!=LessonStatus.Teached)
-            throw new InvalidOperationException("Can not receive grade for not teached lesson");
+            throw new LessonNotVisitedException(grade.Lesson, this);
         if(_grades.Contains(grade))
-            throw new InvalidOperationException("Can not receive grade twice");
+            throw new DoubleGradeStudentLesson(grade.Lesson, this);
         _grades = _grades.Append(grade);
     }
     

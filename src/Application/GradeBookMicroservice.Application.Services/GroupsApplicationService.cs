@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using GradeBookMicroservice.Application.Models.Group;
-using GradeBookMicroservice.Application.Services.Base;
+using GradeBookMicroservice.Application.Services.Abstractions;
 using GradeBookMicroservice.Domain.Entities;
 using GradeBookMicroservice.Domain.Repositories.Abstractions;
 using GradeBookMicroservice.Domain.ValueObjects;
@@ -28,22 +28,6 @@ public class GroupsApplicationService(IGroupsRepository repository,
             return;
         await repository.DeleteAsync(group);
     }
-
-    public async Task<bool> EnrollStudentAsync(EnrollStudentModel enrollmentInformation)
-    {
-        var group = await repository.GetByIdAsync(enrollmentInformation.GroupId);
-        if(group is null)
-            return false;
-        var student = await studentsRepository.GetByIdAsync(enrollmentInformation.StudentId);
-        if(student is null)
-            return false;
-        if(group.Students.FirstOrDefault(st => st.Id == student.Id) is not null)
-            return false;
-        group.AddStudent(student);
-        await repository.UpdateAsync(group);
-        return true;
-    }
-
     public async Task<IEnumerable<GroupModel>> GetAllGroupsAsync() 
                 => (await repository.GetAllAsync()).Select(mapper.Map<GroupModel>);
 

@@ -1,4 +1,5 @@
-﻿using GradeBookMicroservice.Application.Models.Student;
+﻿using GradeBookMicroservice.Application.Models.Base;
+using GradeBookMicroservice.Application.Models.Student;
 
 namespace GradeBookMicroservice.Application.Models.Group;
 

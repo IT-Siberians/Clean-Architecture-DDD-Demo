@@ -1,8 +1,7 @@
-﻿using GradeBookMicroservice.Application.Models.Create;
-using GradeBookMicroservice.Application.Models.Student;
+﻿using GradeBookMicroservice.Application.Models.Student;
 
 
-namespace GradeBookMicroservice.Application.Services;
+namespace GradeBookMicroservice.Application.Services.Abstractions;
 
 public interface IStudentsApplicationService
 {

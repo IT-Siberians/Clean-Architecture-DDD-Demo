@@ -1,22 +1,38 @@
 ﻿using GradeBookMicroservice.Domain.Entities.Base;
+using GradeBookMicroservice.Domain.Entities.Exceptions;
 
 namespace GradeBookMicroservice.Domain.Entities;
 
-public class Grade(Teacher teacher, Student student, Lesson lesson, Mark mark, string? comment=null) : Entity<Guid>
+public class Grade : Entity<Guid>
 {
-    private  Teacher _teacher = teacher;
-    private Student _student = student;
-    private Lesson _lesson = lesson;
-    private DateTime _gradedTime = DateTime.Now;
-    private string? _comment = comment;
-    private Mark _mark = mark;
+    private  Teacher _teacher;
+    private Student _student;
+    private Lesson _lesson;
+    private DateTime _gradedTime;
+    private string? _comment;
+    private Mark _mark;
     public Teacher Teacher => _teacher;
-    public Student Student => _student;
+    public Student Student => Student;
     public Lesson Lesson => _lesson;
     public DateTime GradedTime => _gradedTime;
     public string? Comment => _comment;
     public Mark Mark => _mark;
-
-
-
+    public Grade(Teacher teacher, Student student, Lesson lesson, DateTime gradeTime, Mark mark, string? comment=null) : base(Guid.NewGuid())
+    {
+        if(lesson.State!=LessonStatus.Teached)
+            throw new LessonNotStartedException(lesson);
+        if(lesson.Teacher!=teacher)
+            throw new AnotherTeacherLessonGradedException(lesson, teacher);
+        if(gradeTime<lesson.ClassTime)
+            throw new LessonNotStartedException(lesson);
+        if(!student.AttendedLessons.Contains(lesson))
+            throw new LessonNotVisitedException(lesson, student);
+        _teacher = teacher;
+        _student = student;
+        _lesson = lesson;
+        _gradedTime = gradeTime;
+        _mark = mark;
+        _comment = comment;
+        
+    }
 }

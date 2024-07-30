@@ -1,4 +1,4 @@
-﻿namespace GradeBookMicroservice.Application.Models;
+﻿namespace GradeBookMicroservice.Application.Models.Base;
 
 public interface ICreateModel
 {

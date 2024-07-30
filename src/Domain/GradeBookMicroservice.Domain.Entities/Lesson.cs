@@ -1,4 +1,5 @@
 ﻿using GradeBookMicroservice.Domain.Entities.Base;
+using GradeBookMicroservice.Domain.Entities.Exceptions;
 using GradeBookMicroservice.Domain.ValueObjects;
 
 namespace GradeBookMicroservice.Domain.Entities;
@@ -21,24 +22,29 @@ public class Lesson(Group group, Teacher teacher, LessonTopic topic, string desc
     {
 
     }
+    private void ValidateLesson()
+    {
+        if (State == LessonStatus.Canselled)
+            throw new LessonCanselledException(this);
+        if (State == LessonStatus.Teached)
+            throw new LessonAlreadyTeachedException(this);
+
+    }
     internal void Teach()
     {
-        if(_state!=LessonStatus.New)
-            throw new InvalidOperationException("Lesson is already teached or canseled");
+        ValidateLesson();
         _state = LessonStatus.Teached;
     }
     internal void Cancel()
     {
-        if(_state!=LessonStatus.New)
-            throw new InvalidOperationException("Lesson is already teached or canseled");
+        ValidateLesson();
         _state = LessonStatus.Canselled;
     }
     internal void Reschedule(DateTime time)
     {
-        if(_state!=LessonStatus.New)
-            throw new InvalidOperationException("Lesson is already teached or canseled");
-        if(time<DateTime.Today)
-            throw new InvalidOperationException("Can't reschedule to past time");
+        ValidateLesson();
+        if (time < DateTime.Today)
+            throw new InvalidLessonRescheduleTime(time);
         _classTime = time;
 
     }

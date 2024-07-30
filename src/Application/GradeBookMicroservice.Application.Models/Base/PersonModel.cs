@@ -1,4 +1,6 @@
-﻿namespace GradeBookMicroservice.Application.Models;
+﻿using GradeBookMicroservice.Application.Models.Base;
+
+namespace GradeBookMicroservice.Application.Models;
 
 public abstract class PersonModel : IModel<Guid>
 {

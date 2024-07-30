@@ -1,4 +1,5 @@
-﻿using GradeBookMicroservice.Application.Models.Lesson;
+﻿using GradeBookMicroservice.Application.Models.Base;
+using GradeBookMicroservice.Application.Models.Lesson;
 using GradeBookMicroservice.Application.Models.Student;
 using GradeBookMicroservice.Application.Models.Teacher;
 

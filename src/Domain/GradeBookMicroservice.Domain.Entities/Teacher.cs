@@ -1,5 +1,6 @@
 ﻿using System.Collections.Immutable;
 using GradeBookMicroservice.Domain.Entities.Base;
+using GradeBookMicroservice.Domain.Entities.Exceptions;
 using GradeBookMicroservice.Domain.ValueObjects;
 
 namespace GradeBookMicroservice.Domain.Entities;
@@ -17,18 +18,22 @@ public class Teacher(Guid id, PersonName name, IEnumerable<Lesson> lessons, IEnu
     }
     public void TeachLesson(Lesson lesson)
     {
+        if(lesson.State == LessonStatus.Teached)
+            throw new LessonAlreadyTeachedException(lesson);
         lesson.Teach();
         if(_lessons.Contains(lesson))
-            throw new InvalidOperationException("Can not teach already teached lesson");
+            throw new DoubleTeachedLessonException(lesson, this);
         _lessons = _lessons.Append(lesson);
     }
     public void GradeStudent(Student student, Mark mark, Lesson lesson, string? comment=null)
     {
+        if(lesson.State!=LessonStatus.Teached)
+            throw new LessonNotStartedException(lesson);
         if(!_lessons.Contains(lesson))
-            throw new InvalidOperationException("Can not grade not teached lesson");
+            throw new AnotherTeacherLessonGradedException(lesson, this);
         if(_grades.FirstOrDefault(gr => gr.Student == student && gr.Lesson == lesson)!=null)
-            throw new InvalidOperationException("Can not grade already graded lesson");
-        var grade = new Grade(this, student, lesson,mark, comment);
+            throw new DoubleGradeStudentLesson(lesson, student);
+        var grade = new Grade(this, student, lesson,DateTime.Now,mark, comment);
         student.GetGrade(grade);
         _grades = _grades.Append(grade);
     }
