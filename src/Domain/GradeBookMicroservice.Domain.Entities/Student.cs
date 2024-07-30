@@ -5,14 +5,22 @@ using GradeBookMicroservice.Domain.ValueObjects;
 
 namespace GradeBookMicroservice.Domain.Entities;
 
-public class Student(Guid id, PersonName name, Group group, IEnumerable<Lesson> lessons, IEnumerable<Grade> grades) : Person(id,name)
+public class Student : Person
 {
-    private IEnumerable<Lesson> _lessons = lessons;
-    private IEnumerable<Grade> _grades = grades;
-    private Group _group = group;
+    private IEnumerable<Lesson> _lessons;
+    private IEnumerable<Grade> _grades;
+    private Group _group;
     public IReadOnlyCollection<Lesson> AttendedLessons => _lessons.ToImmutableList();
     public IReadOnlyCollection<Grade> RecievedGrades => _grades.ToImmutableList();
     public Group Group => _group;
+    public Student(Guid id, PersonName name, Group group, IEnumerable<Lesson> lessons, IEnumerable<Grade> grades) : base(id, name)
+    {
+        _group = group;
+        _lessons = lessons;
+        _grades = grades;
+        if(!group.Students.Contains(this))
+            group.AddStudent(this);
+    }
     public Student(PersonName name, Group group) : this(Guid.NewGuid(),name, group, [], [])
     {
 

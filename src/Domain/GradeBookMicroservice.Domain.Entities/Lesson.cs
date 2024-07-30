@@ -4,24 +4,44 @@ using GradeBookMicroservice.Domain.ValueObjects;
 
 namespace GradeBookMicroservice.Domain.Entities;
 
-public class Lesson(Group group, Teacher teacher, LessonTopic topic, string desctiption, DateTime classTime, LessonStatus status) : Entity<Guid>(Guid.NewGuid())
+public class Lesson : Entity<Guid>
 {
-    private Group _group = group;
-    private Teacher _teacher = teacher;
-    private string _description = desctiption;
-    private DateTime _classTime = classTime;
-    private LessonTopic _topic = topic;
-    private LessonStatus _state = status;
+    #region Private fields
+    private Group _group;
+    private Teacher _teacher;
+    private string _description;
+    private DateTime _classTime;
+    private LessonTopic _topic;
+    private LessonStatus _state;
+    #endregion
+    #region Public Readonly Properties
     public Group Group => _group;
     public Teacher Teacher => _teacher;
     public string Description => _description;
     public DateTime ClassTime => _classTime;
     public LessonTopic Topic => _topic;
     public LessonStatus State => _state;
-    public Lesson(Group group, Teacher teacher, string description, DateTime classTime, LessonTopic topic) : this(group, teacher, topic, description, classTime, LessonStatus.New)
+    #endregion
+    #region  Constructors
+    public Lesson(Guid id, Group group, Teacher teacher, LessonTopic topic, string description, DateTime classTime, LessonStatus status) : base(id)
+    {
+        ValidateLessonSchedule(classTime);
+        _group = group;
+        _teacher = teacher;
+        _description = description;
+        _classTime = classTime;
+        _topic = topic;
+        _state = status;
+        if(status==LessonStatus.New)
+            teacher.ScheduleLesson(this);
+    }
+    public Lesson(Group group, Teacher teacher, string description, DateTime classTime, LessonTopic topic) : this(Guid.NewGuid(), group, teacher, topic, description, classTime, LessonStatus.New)
     {
 
     }
+
+    #endregion
+    #region Private methods
     private void ValidateLesson()
     {
         if (State == LessonStatus.Canselled)
@@ -30,6 +50,13 @@ public class Lesson(Group group, Teacher teacher, LessonTopic topic, string desc
             throw new LessonAlreadyTeachedException(this);
 
     }
+    private static void ValidateLessonSchedule(DateTime classTime)
+    {
+        if (classTime < DateTime.Today)
+            throw new InvalidLessonScheduleTimeException(classTime);
+
+    }
+    #endregion
     internal void Teach()
     {
         ValidateLesson();
@@ -43,8 +70,7 @@ public class Lesson(Group group, Teacher teacher, LessonTopic topic, string desc
     internal void Reschedule(DateTime time)
     {
         ValidateLesson();
-        if (time < DateTime.Today)
-            throw new InvalidLessonRescheduleTime(time);
+        ValidateLessonSchedule(time);
         _classTime = time;
 
     }

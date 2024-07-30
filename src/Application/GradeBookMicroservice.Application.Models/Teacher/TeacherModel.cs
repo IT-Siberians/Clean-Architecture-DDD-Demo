@@ -5,7 +5,8 @@ namespace GradeBookMicroservice.Application.Models.Teacher;
 
 public class TeacherModel : PersonModel
 {
-    public IEnumerable<LessonModel> Lessons {get; init;} = [];
+    public IEnumerable<LessonModel> TeachedLessons {get; init;} = [];
+    public IEnumerable<LessonModel> SchedulledLessons {get; init;} = [];
     public IEnumerable<GradeModel> Grades {get; init;} = [];
     
 }

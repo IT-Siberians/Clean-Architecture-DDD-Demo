@@ -5,7 +5,7 @@ using GradeBookMicroservice.Domain.ValueObjects;
 
 namespace GradeBookMicroservice.Domain.Entities;
 
-public class Group(GroupName name, string description, IEnumerable<Student> students) : Entity<Guid>(Guid.NewGuid())
+public class Group(Guid id, GroupName name, string description, IEnumerable<Student> students) : Entity<Guid>(id)
 {
     private IEnumerable<Student> _students = students;
     private GroupName _name = name;
@@ -13,7 +13,7 @@ public class Group(GroupName name, string description, IEnumerable<Student> stud
     public IReadOnlyCollection<Student> Students => _students.ToImmutableList();
     public GroupName Name => _name;
     public string Description => _description;
-    public Group(GroupName name, string description) : this(name, description, [])
+    public Group(GroupName name, string description) : this(Guid.NewGuid(), name, description, [])
     {
 
     }
