@@ -53,7 +53,7 @@ public class StudentsController(IStudentsApplicationService studentsApplicationS
         if(lesson is null)
             return NotFound(request.LessonId);
         var visiting = await visitingApplicationService.VisitLessonAsync(mapper.Map<VisitLessonModel>(request));
-        if(student.Lessons.Contains(lesson))
+        if(student.AttendedLessons.FirstOrDefault(l => l.Id == lesson.Id) is not null)
             return BadRequest("Student has been visited lesson yet");
         if(!visiting)
             return BadRequest("Lesson has not been started or canselled");
