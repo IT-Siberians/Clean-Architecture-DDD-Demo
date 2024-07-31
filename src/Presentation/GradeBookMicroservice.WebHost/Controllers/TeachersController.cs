@@ -55,7 +55,7 @@ public class TeachersController(ITeachersApplicationService teachersApplicationS
             return NotFound(request.LessonId);
         if(teacher.TeachedLessons.FirstOrDefault(l => l.Id == request.LessonId) is not  null)
             return BadRequest("Lesson has beed teached yet");
-        var success = await teachingApplicationService.TeachLesson(mapper.Map<TeachLessonModel>(request));
+        var success = await teachingApplicationService.TeachLessonAsync(mapper.Map<TeachLessonModel>(request));
         if(!success)
             return BadRequest("Lesson has beed teached yet");
         return NoContent();

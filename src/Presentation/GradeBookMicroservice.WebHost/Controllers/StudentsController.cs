@@ -8,7 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace GradeBookMicroservice.WebHost.Controllers;
 [ApiController]
 [Route("/api/v1/[controller]")]
-public class StudentsController(IStudentsApplicationService studentsApplicationService, IMapper mapper) : ControllerBase
+public class StudentsController(IStudentsApplicationService studentsApplicationService,
+                                ILessonsApplicationService lessonsApplicationService,
+                                IVisitingApplicationService visitingApplicationService,
+                                IMapper mapper) : ControllerBase
 {
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<StudentShortResponse>))]
@@ -37,6 +40,27 @@ public class StudentsController(IStudentsApplicationService studentsApplicationS
             return BadRequest();
         return Created("",mapper.Map<StudentShortResponse>(student));
     }
+    [HttpPost("visit")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Guid))]
+    public async Task<IActionResult> VisitLesson(VisitLessonRequest request)
+    {
+        var student = await studentsApplicationService.GetStudentByIdAsync(request.StudentId);
+        if(student is null)
+            return NotFound(request.StudentId);
+        var lesson = await lessonsApplicationService.GetLessonByIdAsync(request.LessonId);
+        if(lesson is null)
+            return NotFound(request.LessonId);
+        var visiting = await visitingApplicationService.VisitLessonAsync(mapper.Map<VisitLessonModel>(request));
+        if(student.Lessons.Contains(lesson))
+            return BadRequest("Student has been visited lesson yet");
+        if(!visiting)
+            return BadRequest("Lesson has not been started or canselled");
+        return NoContent();
+
+    }
+
 
 
 }

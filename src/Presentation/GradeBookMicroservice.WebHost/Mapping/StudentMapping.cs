@@ -12,5 +12,6 @@ public class StudentMapping : Profile
         CreateMap<CreateStudentRequest, CreateStudentModel>();
         CreateMap<StudentModel, StudentShortResponse>();
         CreateMap<StudentModel, StudentDetailedResponse>();
+        CreateMap<VisitLessonRequest, VisitLessonModel>();
     }
 }

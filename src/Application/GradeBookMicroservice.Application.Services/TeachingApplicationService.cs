@@ -2,14 +2,13 @@
 using GradeBookMicroservice.Application.Services.Abstractions;
 using GradeBookMicroservice.Domain.Entities;
 using GradeBookMicroservice.Domain.Repositories.Abstractions;
-using Microsoft.VisualBasic;
 
 namespace GradeBookMicroservice.Application.Services;
 
 public class TeachingApplicationService(IRepository<Teacher, Guid> teachersRepository, 
                                             IRepository<Lesson, Guid> lessonsRepository) : ITeachingApplicationService
 {
-    public async Task<bool> TeachLesson(TeachLessonModel teachingInfo)
+    public async Task<bool> TeachLessonAsync(TeachLessonModel teachingInfo)
     {
         var teacher = await teachersRepository.GetByIdAsync(teachingInfo.TeacherId);
         if(teacher is null)

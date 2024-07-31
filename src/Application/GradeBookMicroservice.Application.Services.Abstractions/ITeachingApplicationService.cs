@@ -4,6 +4,6 @@ namespace GradeBookMicroservice.Application.Services.Abstractions;
 
 public interface ITeachingApplicationService
 {
-    Task<bool> TeachLesson(TeachLessonModel teachingInfo);
+    Task<bool> TeachLessonAsync(TeachLessonModel teachingInfo);
 
 }
