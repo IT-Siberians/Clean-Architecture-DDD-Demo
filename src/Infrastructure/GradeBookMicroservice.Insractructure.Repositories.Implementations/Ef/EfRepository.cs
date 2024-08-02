@@ -32,7 +32,7 @@ public class EfRepository<TEntity, TId>(ApplicationDbContext context) : IReposit
     public async Task<IEnumerable<TEntity>> GetAllAsync() => (await context.Set<TEntity>().ToListAsync()).AsEnumerable();
 
 
-    public virtual async Task<TEntity?> GetByIdAsync(TId id) => await context.Set<TEntity>().FindAsync(id);
+    public async Task<TEntity?> GetByIdAsync(TId id) => await context.Set<TEntity>().FindAsync(id);
 
 
     public Task UpdateAsync(TEntity entity)
