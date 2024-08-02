@@ -4,6 +4,7 @@ using GradeBookMicroservice.Application.Services.Mapping;
 using GradeBookMicroservice.Domain.Entities;
 using GradeBookMicroservice.Domain.Repositories.Abstractions;
 using GradeBookMicroservice.Infrastructure.EntityFramework;
+using GradeBookMicroservice.Infrastructure.Repositories.Implementations.Ef;
 using GradeBookMicroservice.Infrastructure.Repositories.Implementations.InMemory;
 using GradeBookMicroservice.WebHost.Helpers;
 
@@ -20,7 +21,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddGroups();
-builder.Services.AddScoped<IRepository<Student,Guid>, InMemoryRepository<Student,Guid>>();
+builder.Services.AddScoped<IRepository<Student,Guid>, EfRepository<Student,Guid>>();
 builder.Services.AddScoped<IStudentsApplicationService, StudentsApplicationService>();
 builder.Services.AddScoped<IRepository<Teacher, Guid>, InMemoryRepository<Teacher,Guid>>();
 builder.Services.AddScoped<ITeachersApplicationService, TeachersApplicationService>();

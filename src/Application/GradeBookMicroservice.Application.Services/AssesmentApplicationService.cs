@@ -23,14 +23,14 @@ public class AssesmentApplicationService(IRepository<Student, Guid> studentsRepo
         if (lesson is null)
             return null;
         var teacher = lesson.Teacher;
-        if (!student.AttendedLessons.Contains(lesson))
-            return null;
+       /* if (!student.AttendedLessons.Contains(lesson))
+            return null;*/
         if (lesson.State != LessonStatus.Teached)
             return null;
         if (!teacher.TeachedLessons.Contains(lesson))
             return null;
-        if (student.RecievedGrades.FirstOrDefault(gr => gr.Lesson == lesson && gr.Student == student) is not null)
-            return null;
+        /*if (student.RecievedGrades.FirstOrDefault(gr => gr.Lesson == lesson && gr.Student == student) is not null)
+            return null;*/
         teacher.GradeStudent(student, gradeInfromation.Mark, lesson, gradeInfromation.Comment);
         var grade = teacher.AssignedGrades.FirstOrDefault(gr => gr.Lesson == lesson && gr.Student == student);
         if(grade is null)

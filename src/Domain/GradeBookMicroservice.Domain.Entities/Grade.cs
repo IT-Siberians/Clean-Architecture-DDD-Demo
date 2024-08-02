@@ -32,8 +32,8 @@ public class Grade : Entity<Guid>
             throw new AnotherTeacherLessonGradedException(lesson, teacher);
         if (gradeTime < lesson.ClassTime)
             throw new LessonNotStartedException(lesson);
-        if (!student.AttendedLessons.Contains(lesson))
-            throw new LessonNotVisitedException(lesson, student);
+        /*if (!student.AttendedLessons.Contains(lesson))
+            throw new LessonNotVisitedException(lesson, student);*/
         _teacher = teacher;
         _student = student;
         _lesson = lesson;

@@ -1,4 +1,5 @@
-﻿using GradeBookMicroservice.Domain.Entities;
+﻿using System.Security.Cryptography.X509Certificates;
+using GradeBookMicroservice.Domain.Entities;
 using GradeBookMicroservice.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -17,5 +18,7 @@ public class GroupConfiguration : IEntityTypeConfiguration<Group>
                 .HasMaxLength(10);
         builder.HasIndex(x => x.Name).IsUnique();
         builder.Property(x => x.Description).IsRequired();
+        builder.HasMany(x => x.Students).WithOne(x => x.Group);
+       // builder.Navigation<Student>(x => x.Students).AutoInclude();
     }
 }
