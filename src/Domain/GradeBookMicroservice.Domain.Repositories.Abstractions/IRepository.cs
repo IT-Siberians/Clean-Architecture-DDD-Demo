@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using GradeBookMicroservice.Domain.Entities.Base;
+﻿using GradeBookMicroservice.Domain.Entities.Base;
 
 namespace GradeBookMicroservice.Domain.Repositories.Abstractions;
 

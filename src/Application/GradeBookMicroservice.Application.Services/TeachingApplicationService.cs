@@ -1,6 +1,7 @@
 ﻿using GradeBookMicroservice.Application.Models.Teacher;
 using GradeBookMicroservice.Application.Services.Abstractions;
 using GradeBookMicroservice.Domain.Entities;
+using GradeBookMicroservice.Domain.Entities.Enumes;
 using GradeBookMicroservice.Domain.Repositories.Abstractions;
 
 namespace GradeBookMicroservice.Application.Services;

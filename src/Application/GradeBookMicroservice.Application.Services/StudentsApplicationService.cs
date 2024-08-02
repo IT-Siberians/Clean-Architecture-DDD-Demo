@@ -17,8 +17,6 @@ public class StudentsApplicationService(IRepository<Student, Guid> studentReposi
             return null;
         var student = new Student(new PersonName(studentInfo.Name), group);
         student= await studentRepository.AddAsync(student);
-        if(student is null)
-            return null;
         await groupRepository.UpdateAsync(group);    
         return mapper.Map<StudentModel>(student);
     }

@@ -1,4 +1,5 @@
 ﻿using GradeBookMicroservice.WebHost.Responses.Grade;
+using GradeBookMicroservice.WebHost.Responses.Lesson;
 
 namespace GradeBookMicroservice.WebHost.Responses.Teacher;
 

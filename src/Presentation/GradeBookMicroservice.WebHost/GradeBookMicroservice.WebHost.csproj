@@ -19,8 +19,9 @@
     <ProjectReference Include="..\..\Domain\GradeBookMicroservice.Domain.Services\GradeBookMicroservice.Domain.Services.csproj" />
     <ProjectReference Include="..\..\Domain\GradeBookMicroservice.Domain.ValueObjects\GradeBookMicroservice.Domain.ValueObjects.csproj" />
     <ProjectReference Include="..\..\Infrastructure\GradeBookMicroservice.Infrastructure.EntityFramework\GradeBookMicroservice.Infrastructure.EntityFramework.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\GradeBookMicroservice.Insractructure.Repositories.Implementations\GradeBookMicroservice.Insractructure.Repositories.Implementations.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\GradeBookMicroservice.Infractructure.Repositories.Implementations\GradeBookMicroservice.Infractructure.Repositories.Implementations.csproj" />
     <ProjectReference Include="..\..\Common\GradebookMicroservice.Common\GradebookMicroservice.Common.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\GradeBookMicroservice.Insractructure.Repositories.Implementations\GradeBookMicroservice.Insractructure.Repositories.Implementations.csproj" />
   </ItemGroup>
 
 </Project>

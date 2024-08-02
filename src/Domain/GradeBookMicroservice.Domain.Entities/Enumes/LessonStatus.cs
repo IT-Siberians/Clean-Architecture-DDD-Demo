@@ -1,4 +1,4 @@
-﻿namespace GradeBookMicroservice.Domain.Entities;
+﻿namespace GradeBookMicroservice.Domain.Entities.Enumes;
 
 public enum LessonStatus
 {

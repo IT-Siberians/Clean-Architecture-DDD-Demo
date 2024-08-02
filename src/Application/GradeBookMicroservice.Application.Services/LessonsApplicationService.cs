@@ -43,10 +43,7 @@ public class LessonsApplicationService(IRepository<Lesson, Guid> lessonsReposito
     public async Task<LessonModel?> GetLessonByIdAsync(Guid id)
     {
         var lesson = await lessonsRepository.GetByIdAsync(id);
-        if (lesson is null)
-            return null;
-        return mapper.Map<LessonModel>(lesson);
-
+        return lesson is null ? null : mapper.Map<LessonModel>(lesson);
     }
 
     public async Task UpdateLessonAsync(LessonModel lesson)

@@ -13,10 +13,7 @@ public class TeachersApplicationService(IRepository<Teacher, Guid> repository, I
     {
         var teacher = new Teacher(new PersonName(teacherInformation.Name));
         teacher = await repository.AddAsync(teacher);
-        if(teacher is null)
-            return null;
         return mapper.Map<TeacherModel>(teacher);
-
     }
 
     public async Task DeleteTeacherAsync(Guid id)
@@ -30,9 +27,7 @@ public class TeachersApplicationService(IRepository<Teacher, Guid> repository, I
     public async Task<TeacherModel?> GetTeacherByIdAsync(Guid id)
     {
         var teacher = await repository.GetByIdAsync(id);
-        if(teacher is null)
-            return null;
-        return mapper.Map<TeacherModel>(teacher);
+        return teacher is null ? null : mapper.Map<TeacherModel>(teacher);
     }
 
     public async Task<IEnumerable<TeacherModel>> GetTeachersAsync() 

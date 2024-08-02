@@ -1,4 +1,4 @@
-﻿namespace GradeBookMicroservice.WebHost;
+﻿namespace GradeBookMicroservice.WebHost.Responses.Lesson;
 
 public class LessonShortResponse
 {

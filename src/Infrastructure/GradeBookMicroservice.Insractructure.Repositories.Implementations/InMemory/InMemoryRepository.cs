@@ -1,4 +1,4 @@
-﻿namespace GradeBookMicroservice.Insractructure.Repositories.Implementations.InMemory;
+﻿namespace GradeBookMicroservice.Infrastructure.Repositories.Implementations.InMemory;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -6,7 +6,7 @@ using GradeBookMicroservice.Domain.Entities.Base;
 using GradeBookMicroservice.Domain.Repositories.Abstractions;
 public class InMemoryRepository<TEntity, TId>(IEnumerable<TEntity> entities) : IRepository<TEntity, TId> where TEntity : Entity<TId> where TId : struct
 {
-    protected List<TEntity> Entities = entities.ToList();
+    protected readonly List<TEntity> Entities = entities.ToList();
 
     public InMemoryRepository() : this([])
     {

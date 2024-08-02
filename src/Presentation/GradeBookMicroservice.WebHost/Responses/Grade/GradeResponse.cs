@@ -1,4 +1,5 @@
 ﻿using GradebookMicroservice.Common.Enumes;
+using GradeBookMicroservice.WebHost.Responses.Lesson;
 using GradeBookMicroservice.WebHost.Responses.Student;
 using GradeBookMicroservice.WebHost.Responses.Teacher;
 

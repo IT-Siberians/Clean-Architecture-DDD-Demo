@@ -3,7 +3,7 @@ using GradeBookMicroservice.Application.Services.Abstractions;
 using GradeBookMicroservice.Application.Services.Mapping;
 using GradeBookMicroservice.Domain.Entities;
 using GradeBookMicroservice.Domain.Repositories.Abstractions;
-using GradeBookMicroservice.Insractructure.Repositories.Implementations.InMemory;
+using GradeBookMicroservice.Infractructure.Repositories.Implementations.InMemory;
 
 var builder = WebApplication.CreateBuilder(args);
 

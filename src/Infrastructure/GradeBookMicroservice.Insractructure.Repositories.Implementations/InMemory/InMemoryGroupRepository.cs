@@ -1,7 +1,7 @@
 ﻿using GradeBookMicroservice.Domain.Entities;
 using GradeBookMicroservice.Domain.Repositories.Abstractions;
 
-namespace GradeBookMicroservice.Insractructure.Repositories.Implementations.InMemory;
+namespace GradeBookMicroservice.Infractructure.Repositories.Implementations.InMemory;
 
 public class InMemoryGroupRepository(IEnumerable<Group> groups) : InMemoryRepository<Group, Guid>(groups), IGroupsRepository
 {

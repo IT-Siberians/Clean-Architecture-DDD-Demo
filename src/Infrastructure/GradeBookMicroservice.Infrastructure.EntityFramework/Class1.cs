@@ -1,4 +1,4 @@
-﻿namespace GradeBookMicroservice.Infrastructure.EntityFr;
+﻿namespace GradeBookMicroservice.Infrastructure.EntityFramework;
 
 public class Class1
 {
