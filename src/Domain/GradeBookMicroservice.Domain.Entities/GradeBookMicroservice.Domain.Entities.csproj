@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GradeBookMicroservice.Domain.ValueObjects\GradeBookMicroservice.Domain.ValueObjects.csproj" />
+    <ProjectReference Include="..\..\Common\GradebookMicroservice.Common\GradebookMicroservice.Common.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -69,7 +69,7 @@ public class TeachersController(ITeachersApplicationService teachersApplicationS
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Guid))]
     public async Task<ActionResult<GradeResponse>> GradeStudentAsync(GradeStudentModelRequest request)
     {
-        var teacher = await teachersApplicationService.GetTeacherByIdAsync(request.StudentId);
+        var teacher = await teachersApplicationService.GetTeacherByIdAsync(request.TeacherId);
         if (teacher is null)
             return NotFound(request.TeacherId);
         var student = await studentsApplicationService.GetStudentByIdAsync(request.StudentId);
@@ -82,7 +82,7 @@ public class TeachersController(ITeachersApplicationService teachersApplicationS
             return BadRequest($"Teacher have not teached this lesson with id {lesson.Id} ");
         if (student.AttendedLessons.FirstOrDefault(l => l.Id == lesson.Id) is null)
             return BadRequest($"Student have not attended this lesson with id {lesson.Id} ");
-        if (student.Grades.FirstOrDefault(g => g.Lesson.Id == lesson.Id) is not null)
+        if (student.RecievedGrades.FirstOrDefault(g => g.Lesson.Id == lesson.Id) is not null)
             return BadRequest($"Student have already graded this lesson with id {lesson.Id} ");
         var grade = await assesmentApplicationService.GradeStudentAsync(mapper.Map<GradeStudentModel>(request));
         if(grade is null)

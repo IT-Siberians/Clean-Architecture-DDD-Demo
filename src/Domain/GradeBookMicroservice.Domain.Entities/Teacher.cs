@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using GradebookMicroservice.Common.Enumes;
 using GradeBookMicroservice.Domain.Entities.Base;
 using GradeBookMicroservice.Domain.Entities.Exceptions;
 using GradeBookMicroservice.Domain.ValueObjects;
@@ -25,7 +26,7 @@ public class Teacher(Guid id, PersonName name, IEnumerable<Lesson> lessons, IEnu
         if (TeachedLessons.Contains(lesson))
             throw new DoubleTeachedLessonException(lesson, this);
         lesson.Teach();
-        if (_lessons.Contains(lesson))
+        if (!_lessons.Contains(lesson))
             _lessons = _lessons.Append(lesson);
     }
     public void GradeStudent(Student student, Mark mark, Lesson lesson, string? comment = null)

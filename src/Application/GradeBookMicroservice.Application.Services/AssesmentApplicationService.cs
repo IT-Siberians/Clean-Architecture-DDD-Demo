@@ -28,10 +28,10 @@ public class AssesmentApplicationService(IRepository<Student, Guid> studentsRepo
             return null;
         if (!teacher.TeachedLessons.Contains(lesson))
             return null;
-        if (student.RecievedGrades.FirstOrDefault(grade => grade.Lesson == lesson && grade.Student == student) is not null)
+        if (student.RecievedGrades.FirstOrDefault(gr => gr.Lesson == lesson && gr.Student == student) is not null)
             return null;
-        teacher.GradeStudent(student, Mark.Excellent, lesson, gradeInfromation.Comment);
-        var grade = teacher.AssignedGrades.FirstOrDefault(grade => grade.Lesson == lesson && grade.Student == student);
+        teacher.GradeStudent(student, gradeInfromation.Mark, lesson, gradeInfromation.Comment);
+        var grade = teacher.AssignedGrades.FirstOrDefault(gr => gr.Lesson == lesson && gr.Student == student);
         if(grade is null)
             return null;
         await gradesRepository.AddAsync(grade);

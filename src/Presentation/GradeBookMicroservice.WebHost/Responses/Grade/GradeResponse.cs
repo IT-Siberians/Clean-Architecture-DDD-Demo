@@ -1,4 +1,5 @@
-﻿using GradeBookMicroservice.WebHost.Responses.Student;
+﻿using GradebookMicroservice.Common.Enumes;
+using GradeBookMicroservice.WebHost.Responses.Student;
 using GradeBookMicroservice.WebHost.Responses.Teacher;
 
 namespace GradeBookMicroservice.WebHost.Responses.Grade;
@@ -10,6 +11,6 @@ public class GradeResponse
     public required LessonShortResponse Lesson {get; init;}
     public required DateTime GradedTime {get; init;}
     public string? Comment {get; init;}
-    public int Mark {get; init;}
+    public Mark Mark {get; init;}
 
 }

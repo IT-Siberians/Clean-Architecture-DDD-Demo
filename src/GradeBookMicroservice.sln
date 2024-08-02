@@ -33,6 +33,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBookMicroservice.Domai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBookMicroservice.Application.Services.Abstractions", "Application\GradeBookMicroservice.Application.Services.Abstractions\GradeBookMicroservice.Application.Services.Abstractions.csproj", "{D4CDB8D5-A189-4A6F-8E4C-D63A516B2503}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{84FA805D-A043-44DF-9D06-CD905A69DF71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradebookMicroservice.Common", "Common\GradebookMicroservice.Common\GradebookMicroservice.Common.csproj", "{342B4623-3B8B-4690-9006-7686B7874239}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +83,10 @@ Global
 		{D4CDB8D5-A189-4A6F-8E4C-D63A516B2503}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4CDB8D5-A189-4A6F-8E4C-D63A516B2503}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4CDB8D5-A189-4A6F-8E4C-D63A516B2503}.Release|Any CPU.Build.0 = Release|Any CPU
+		{342B4623-3B8B-4690-9006-7686B7874239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{342B4623-3B8B-4690-9006-7686B7874239}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{342B4623-3B8B-4690-9006-7686B7874239}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{342B4623-3B8B-4690-9006-7686B7874239}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,5 +102,6 @@ Global
 		{9D437DD1-86D7-4CD1-9590-FD90520B51CE} = {C47F024B-F61A-4A81-847E-8E1E61ED5A4D}
 		{5371E717-AD1A-47A9-9FCE-1E8C3AF58064} = {C47F024B-F61A-4A81-847E-8E1E61ED5A4D}
 		{D4CDB8D5-A189-4A6F-8E4C-D63A516B2503} = {A04ACF78-79CF-4247-BA38-066452E392ED}
+		{342B4623-3B8B-4690-9006-7686B7874239} = {84FA805D-A043-44DF-9D06-CD905A69DF71}
 	EndGlobalSection
 EndGlobal

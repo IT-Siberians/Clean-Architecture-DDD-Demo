@@ -1,4 +1,5 @@
-﻿using GradeBookMicroservice.Domain.Entities.Base;
+﻿using GradebookMicroservice.Common.Enumes;
+using GradeBookMicroservice.Domain.Entities.Base;
 using GradeBookMicroservice.Domain.Entities.Exceptions;
 
 namespace GradeBookMicroservice.Domain.Entities;
@@ -15,7 +16,7 @@ public class Grade : Entity<Guid>
     #endregion
     #region Public readable properties
     public Teacher Teacher => _teacher;
-    public Student Student => Student;
+    public Student Student => _student;
     public Lesson Lesson => _lesson;
     public DateTime GradedTime => _gradedTime;
     public string? Comment => _comment;

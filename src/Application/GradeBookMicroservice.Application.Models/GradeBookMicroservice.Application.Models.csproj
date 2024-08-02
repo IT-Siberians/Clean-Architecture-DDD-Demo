@@ -11,4 +11,8 @@
     <Folder Include="Lesson/" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\GradebookMicroservice.Common\GradebookMicroservice.Common.csproj" />
+  </ItemGroup>
+
 </Project>

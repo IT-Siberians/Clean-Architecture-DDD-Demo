@@ -1,6 +1,130 @@
 @GradeBookMicroservice.WebHost_HostAddress = http://localhost:5037
-
-GET {{GradeBookMicroservice.WebHost_HostAddress}}/weatherforecast/
+### Create teacher
+POST {{GradeBookMicroservice.WebHost_HostAddress}}/api/v1/Teachers/
 Accept: application/json
+Content-Type: application/json
 
-###
+{
+  "name" : "Oleg Golenischev"
+}
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 201, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function () {
+        const type = response.contentType.mimeType;
+        client.assert(type === "application/json", `Expected 'application/json' but received '${type}'`);
+    });
+    client.global.set("teacher_id", response.body.id);
+%}
+### Create group for students
+POST {{GradeBookMicroservice.WebHost_HostAddress}}/api/v1/Groups
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "CS-2024-05",
+  "description": "First group of C# programming"
+}
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 201, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function () {
+        const type = response.contentType.mimeType;
+        client.assert(type === "application/json", `Expected 'application/json' but received '${type}'`);
+    });
+    client.global.set("group_id", response.body.id);
+%}
+### Create student
+POST {{GradeBookMicroservice.WebHost_HostAddress}}/api/v1/Students
+Content-Type: application/json
+
+{
+  "name": "Vladimir Burakov",
+  "groupId": "{{group_id}}"
+}
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 201, response.body);
+    });
+
+    client.test("Response content-type is json", function () {
+        const type = response.contentType.mimeType;
+        client.assert(type === "application/json", `Expected 'application/json' but received '${type}'`);
+    });
+    client.global.set("student_id", response.body.id);
+%}
+### Create lesson
+POST {{GradeBookMicroservice.WebHost_HostAddress}}/api/v1/Lessons
+Content-Type: application/json
+
+{
+  "teacherId":  "{{teacher_id}}",
+  "topic": "Introduction",
+  "description": "First lesson of C# course",
+  "classTime" : "{{$isoTimestamp}}",
+  "groupId": "{{group_id}}"
+}
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 201, request.body());
+    });
+
+    client.test("Response content-type is json", function () {
+        const type = response.contentType.mimeType;
+        client.assert(type === "application/json", `Expected 'application/json' but received '${type}'`);
+    });
+    client.global.set("lesson_id", response.body.id);
+%}
+
+### Teach lesson
+POST {{GradeBookMicroservice.WebHost_HostAddress}}/api/v1/Teachers/teach
+Content-Type: application/json
+
+{
+  "teacherId": "{{teacher_id}}",
+  "lessonId": "{{lesson_id}}"
+
+}
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 204), request.body();
+    });
+%}
+
+### Visit lesson
+POST {{GradeBookMicroservice.WebHost_HostAddress}}/api/v1/Students/visit
+Content-Type: application/json
+
+{
+  "studentId": "{{student_id}}",
+  "lessonId": "{{lesson_id}}"
+
+}
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 204);
+    });
+    
+%}
+### Grade Student
+POST {{GradeBookMicroservice.WebHost_HostAddress}}/api/v1/Teachers/grade
+Content-Type: application/json
+
+{
+  "studentId": "{{student_id}}",
+  "lessonId": "{{lesson_id}}",
+  "teacherId" : "{{teacher_id}}",
+  "mark": 5,
+  "comment": "test grade of student"
+
+}
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 204);
+    });
+
+%}

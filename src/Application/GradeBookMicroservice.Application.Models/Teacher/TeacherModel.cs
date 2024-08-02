@@ -7,6 +7,6 @@ public class TeacherModel : PersonModel
 {
     public required IEnumerable<LessonModel> TeachedLessons {get; init;}
     public required IEnumerable<LessonModel> SchedulledLessons {get; init;}
-    public required IEnumerable<GradeModel> Grades {get; init;}
+    public required IEnumerable<GradeModel> AssignedGrades {get; init;}
     
 }

@@ -28,9 +28,7 @@ public abstract class Entity<TId>(TId id) : IEquatable<Entity<TId>>  where TId :
     }
     public override bool Equals(object? obj)
     {
-        if(obj is not Entity<TId> other)
-            return false;
-        return EqualityComparer<TId>.Default.Equals(Id, other.Id);
+        return obj is Entity<TId> other && EqualityComparer<TId>.Default.Equals(Id, other.Id);
     }
     public override int GetHashCode() => EqualityComparer<TId>.Default.GetHashCode(Id);
 
@@ -40,7 +38,7 @@ public abstract class Entity<TId>(TId id) : IEquatable<Entity<TId>>  where TId :
     {
         if(ReferenceEquals(first, second))
             return true;
-        return first is not null && !first.Id.Equals(default(TId)) && first.Equals(second);
+        return !first.Id.Equals(default(TId)) && first.Equals(second);
     }
     public static bool operator!=(Entity<TId> first, Entity<TId> second) =>!(first == second);
 }

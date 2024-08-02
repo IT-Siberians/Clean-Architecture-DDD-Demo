@@ -23,6 +23,8 @@ builder.Services.AddSingleton<IRepository<Lesson, Guid>, InMemoryRepository<Less
 builder.Services.AddSingleton<ILessonsApplicationService, LessonsApplicationService>();
 builder.Services.AddSingleton<ITeachingApplicationService, TeachingApplicationService>();
 builder.Services.AddSingleton<IVisitingApplicationService, VisitingApplicationService>();
+builder.Services.AddSingleton<IRepository<Grade, Guid>, InMemoryRepository<Grade,Guid>>();
+builder.Services.AddSingleton<IAssesmentApplicationService, AssesmentApplicationService>();
 builder.Services.AddAutoMapper(typeof(Program), typeof(GroupMapping));
 
 var app = builder.Build();
