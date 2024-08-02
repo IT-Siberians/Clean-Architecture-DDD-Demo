@@ -10,26 +10,14 @@
 /// <param name="id">The ID of the entity.</param>
 public abstract class Entity<TId>(TId id) : IEquatable<Entity<TId>>  where TId : struct
 {
-    /// <summary>
-    /// private field for id of the entity.
-    /// </summary>
-    private TId _id = id;
 
     /// <summary>
     /// Gets the ID of the entity.
     /// </summary>
-    public TId Id  => _id;
-    /// <summary>
-    /// Protected constructor for entity framework if needed.
-    /// </summary>
-    protected Entity() : this(default!)
-    {
+    public TId Id {get; protected set;} = id;
 
-    }
-    public override bool Equals(object? obj)
-    {
-        return obj is Entity<TId> other && EqualityComparer<TId>.Default.Equals(Id, other.Id);
-    }
+    public override bool Equals(object? obj) =>  obj is Entity<TId> other && EqualityComparer<TId>.Default.Equals(Id, other.Id);
+    
     public override int GetHashCode() => EqualityComparer<TId>.Default.GetHashCode(Id);
 
     public bool Equals(Entity<TId>? other) => other is not null && EqualityComparer<TId>.Default.Equals(Id, other.Id);

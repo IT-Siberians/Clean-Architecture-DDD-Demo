@@ -19,8 +19,8 @@ public class Student : Person
         _group = group;
         _lessons = lessons;
         _grades = grades;
-        if(!group.Students.Contains(this))
-            group.AddStudent(this);
+        /*if(!group.Students.Contains(this))
+            group.AddStudent(this);*/
     }
     public Student(PersonName name, Group group) : this(Guid.NewGuid(),name, group, [], [])
     {

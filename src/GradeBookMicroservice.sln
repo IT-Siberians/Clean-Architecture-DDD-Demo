@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBookMicroservice.Appli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBookMicroservice.Infrastructure.EntityFramework", "Infrastructure\GradeBookMicroservice.Infrastructure.EntityFramework\GradeBookMicroservice.Infrastructure.EntityFramework.csproj", "{4AFF5B95-4ABC-417D-9EA6-01FD55934F16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBookMicroservice.Insractructure.Repositories.Implementations", "Infrastructure\GradeBookMicroservice.Insractructure.Repositories.Implementations\GradeBookMicroservice.Insractructure.Repositories.Implementations.csproj", "{53E285C9-5708-41C3-A9D3-5F6027CE6D76}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBookMicroservice.Infrastructure.Repositories.Implementations", "Infrastructure\GradeBookMicroservice.Insractructure.Repositories.Implementations\GradeBookMicroservice.Infrastructure.Repositories.Implementations.csproj", "{53E285C9-5708-41C3-A9D3-5F6027CE6D76}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBookMicroservice.WebHost", "Presentation\GradeBookMicroservice.WebHost\GradeBookMicroservice.WebHost.csproj", "{C736019C-5FF0-42E7-ADE1-272D74AD53A6}"
 EndProject
