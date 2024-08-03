@@ -16,6 +16,7 @@ public class TeacherConfiguration : IEntityTypeConfiguration<Teacher>
                 .HasMaxLength(50);
         builder.Ignore(x=> x.SchedulledLessons);
         builder.Ignore(x => x.TeachedLessons);
+        builder.Navigation("_lessons").AutoInclude();
         
     }
 }
