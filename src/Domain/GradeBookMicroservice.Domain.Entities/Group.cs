@@ -1,16 +1,23 @@
-﻿using GradeBookMicroservice.Domain.Entities.Base;
+﻿using System.Collections.Immutable;
+using GradeBookMicroservice.Domain.Entities.Base;
 using GradeBookMicroservice.Domain.Entities.Exceptions;
 using GradeBookMicroservice.Domain.ValueObjects;
 
 namespace GradeBookMicroservice.Domain.Entities;
 
-public class Group(Guid id, GroupName name, string description, List<Student> students) : Entity<Guid>(id)
+public class Group : Entity<Guid>
 {
-    private readonly List<Student> _students = students;
-    public IReadOnlyCollection<Student> Students => _students.AsReadOnly();
-    public GroupName Name {get; protected set;} = name;
-    public string Description {get; protected set;} = description;
-    public Group(GroupName name, string description) : this(Guid.NewGuid(), name, description, [])
+    private readonly ICollection<Student> _students = [];
+    public IReadOnlyCollection<Student> Students => [.. _students];
+    public GroupName Name {get;}
+    public string Description {get; }
+    protected Group(Guid id, GroupName name, string description) : base(id)
+    {
+        Name = name;
+        Description = description;
+
+    }
+    public Group(GroupName name, string description) : this(Guid.NewGuid(), name, description)
     {
 
     }
