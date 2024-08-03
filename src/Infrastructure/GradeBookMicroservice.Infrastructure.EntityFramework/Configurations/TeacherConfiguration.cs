@@ -14,6 +14,8 @@ public class TeacherConfiguration : IEntityTypeConfiguration<Teacher>
                 .HasConversion(name => name.Name, name => new PersonName(name))
                 .IsRequired()
                 .HasMaxLength(50);
+        builder.Ignore(x=> x.SchedulledLessons);
+        builder.Ignore(x => x.TeachedLessons);
         
     }
 }

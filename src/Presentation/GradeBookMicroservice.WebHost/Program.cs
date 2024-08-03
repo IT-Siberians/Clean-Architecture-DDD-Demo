@@ -25,7 +25,7 @@ builder.Services.AddScoped<IRepository<Student,Guid>, EfRepository<Student,Guid>
 builder.Services.AddScoped<IStudentsApplicationService, StudentsApplicationService>();
 builder.Services.AddScoped<IRepository<Teacher, Guid>, EfRepository<Teacher,Guid>>();
 builder.Services.AddScoped<ITeachersApplicationService, TeachersApplicationService>();
-builder.Services.AddScoped<IRepository<Lesson, Guid>, InMemoryRepository<Lesson,Guid>>();
+builder.Services.AddScoped<IRepository<Lesson, Guid>, EfRepository<Lesson,Guid>>();
 builder.Services.AddScoped<ILessonsApplicationService, LessonsApplicationService>();
 builder.Services.AddScoped<ITeachingApplicationService, TeachingApplicationService>();
 builder.Services.AddScoped<IVisitingApplicationService, VisitingApplicationService>();
