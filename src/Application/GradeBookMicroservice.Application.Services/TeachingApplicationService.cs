@@ -19,8 +19,8 @@ public class TeachingApplicationService(IRepository<Teacher, Guid> teachersRepos
             return false;
         if(lesson.State != LessonStatus.New)
             return false;
-        /*if(teacher.TeachedLessons.Contains(lesson))
-            return false;*/
+        if(teacher.TeachedLessons.Contains(lesson))
+            return false;
         teacher.TeachLesson(lesson);
         await teachersRepository.UpdateAsync(teacher);
         await lessonsRepository.UpdateAsync(lesson);
