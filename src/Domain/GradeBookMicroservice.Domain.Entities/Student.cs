@@ -9,9 +9,9 @@ namespace GradeBookMicroservice.Domain.Entities;
 public class Student : Person
 {
     private readonly ICollection<Lesson> _lessons = [];
-    //private IEnumerable<Grade> _grades;
+    private readonly ICollection<Grade> _grades = [];
     public IReadOnlyCollection<Lesson> AttendedLessons => [.. _lessons];
-    //public IReadOnlyCollection<Grade> RecievedGrades => _grades.ToImmutableList();
+    public IReadOnlyCollection<Grade> RecievedGrades => [.. _grades];
     public Group Group { get; protected set; }
     protected Student(Guid id, PersonName name, Group group) : base(id, name)
     {
@@ -33,8 +33,8 @@ public class Student : Person
             throw new LessonNotStartedException(lesson);
         if (lesson.Group != Group)
             throw new AnotherGroupLessonException(this, lesson.Group);
-        if(_lessons.Contains(lesson))
-            throw new DoubleVisitedLessonException(lesson,this);
+        if (_lessons.Contains(lesson))
+            throw new DoubleVisitedLessonException(lesson, this);
         _lessons.Add(lesson);
 
     }
@@ -42,11 +42,11 @@ public class Student : Person
     {
         if (grade.Student != this)
             throw new AnotherStudentGradeException(this, grade);
-        if(!_lessons.Contains(grade.Lesson))
+        if (!_lessons.Contains(grade.Lesson))
             throw new LessonNotVisitedException(grade.Lesson, this);
-        /*if(_grades.Contains(grade))
+        if (_grades.Contains(grade))
             throw new DoubleGradeStudentLesson(grade.Lesson, this);
-        _grades = _grades.Append(grade);*/
+        _grades.Add(grade);
     }
 
 }

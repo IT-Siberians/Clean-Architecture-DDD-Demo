@@ -29,7 +29,7 @@ builder.Services.AddScoped<IRepository<Lesson, Guid>, EfRepository<Lesson,Guid>>
 builder.Services.AddScoped<ILessonsApplicationService, LessonsApplicationService>();
 builder.Services.AddScoped<ITeachingApplicationService, TeachingApplicationService>();
 builder.Services.AddScoped<IVisitingApplicationService, VisitingApplicationService>();
-builder.Services.AddScoped<IRepository<Grade, Guid>, InMemoryRepository<Grade,Guid>>();
+builder.Services.AddScoped<IRepository<Grade, Guid>, EfRepository<Grade,Guid>>();
 builder.Services.AddScoped<IAssesmentApplicationService, AssesmentApplicationService>();
 builder.Services.AddAutoMapper(typeof(Program), typeof(GroupMapping));
 

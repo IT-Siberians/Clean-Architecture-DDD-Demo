@@ -29,15 +29,15 @@ public class AssesmentApplicationService(IRepository<Student, Guid> studentsRepo
             return null;
         if (!teacher.TeachedLessons.Contains(lesson))
             return null;
-        /*if (student.RecievedGrades.FirstOrDefault(gr => gr.Lesson == lesson && gr.Student == student) is not null)
-            return null;*/
+        if (student.RecievedGrades.FirstOrDefault(gr => gr.Lesson == lesson && gr.Student == student) is not null)
+            return null;
         teacher.GradeStudent(student, gradeInfromation.Mark, lesson, gradeInfromation.Comment);
-        /*var grade = teacher.AssignedGrades.FirstOrDefault(gr => gr.Lesson == lesson && gr.Student == student);
+        var grade = teacher.AssignedGrades.FirstOrDefault(gr => gr.Lesson == lesson && gr.Student == student);
         if(grade is null)
-            return null;*/
-        //await gradesRepository.AddAsync(grade);
+            return null;
+        await gradesRepository.AddAsync(grade);
         await studentsRepository.UpdateAsync(student);
         await teachersRepository.UpdateAsync(teacher);
-        return mapper.Map<GradeModel>(new Grade(teacher, student, lesson, DateTime.Now, GradebookMicroservice.Common.Enumes.Mark.Excellent));
+        return mapper.Map<GradeModel>(grade);
     }
 }

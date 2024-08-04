@@ -10,10 +10,10 @@ namespace GradeBookMicroservice.Domain.Entities;
 public class Teacher(PersonName name) : Person(Guid.NewGuid(), name)
 {
     private readonly ICollection<Lesson> _lessons = [];
-    //private readonly ICollection<Grade> _grades = [];
+    private readonly ICollection<Grade> _grades = [];
     public IReadOnlyCollection<Lesson> TeachedLessons => _lessons.Where(lesson => lesson.State == LessonStatus.Teached).ToList().AsReadOnly();
     public IReadOnlyCollection<Lesson> SchedulledLessons => _lessons.Where(lesson => lesson.State == LessonStatus.New).ToList().AsReadOnly();
-    //public IReadOnlyCollection<Grade> AssignedGrades => [.._grades];
+    public IReadOnlyCollection<Grade> AssignedGrades => [.._grades];
 
     public void TeachLesson(Lesson lesson)
     {
@@ -31,11 +31,11 @@ public class Teacher(PersonName name) : Person(Guid.NewGuid(), name)
             throw new LessonNotStartedException(lesson);
         if (!_lessons.Contains(lesson))
             throw new AnotherTeacherLessonGradedException(lesson, this);
-       /* if (_grades.FirstOrDefault(gr => gr.Student == student && gr.Lesson == lesson) is not null)
+        if (_grades.FirstOrDefault(gr => gr.Student == student && gr.Lesson == lesson) is not null)
             throw new DoubleGradeStudentLesson(lesson, student);
         var grade = new Grade(this, student, lesson, DateTime.Now, mark, comment);
         student.GetGrade(grade);
-        _grades.Add(grade);*/
+        _grades.Add(grade);
     }
     internal void ScheduleLesson(Lesson lesson)
     {

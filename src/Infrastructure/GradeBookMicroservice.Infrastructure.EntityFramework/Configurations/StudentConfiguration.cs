@@ -20,6 +20,8 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
         builder.HasMany("_lessons").WithMany();
         builder.Ignore(x => x.AttendedLessons);
         builder.Navigation("_lessons").AutoInclude();
+        builder.Navigation("_grades").AutoInclude();
+        builder.Ignore(x => x.RecievedGrades);
 
     }
 }

@@ -17,6 +17,8 @@ public class TeacherConfiguration : IEntityTypeConfiguration<Teacher>
         builder.Ignore(x=> x.SchedulledLessons);
         builder.Ignore(x => x.TeachedLessons);
         builder.Navigation("_lessons").AutoInclude();
+        builder.Navigation("_grades").AutoInclude();
+        builder.Ignore(x => x.AssignedGrades);
         
     }
 }
