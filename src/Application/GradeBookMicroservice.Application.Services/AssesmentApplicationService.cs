@@ -23,8 +23,8 @@ public class AssesmentApplicationService(IRepository<Student, Guid> studentsRepo
         if (lesson is null)
             return null;
         var teacher = lesson.Teacher;
-       /* if (!student.AttendedLessons.Contains(lesson))
-            return null;*/
+        if (!student.AttendedLessons.Contains(lesson))
+            return null;
         if (lesson.State != LessonStatus.Teached)
             return null;
         if (!teacher.TeachedLessons.Contains(lesson))

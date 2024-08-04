@@ -17,6 +17,9 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
                 .HasMaxLength(50);
         builder.HasOne(x => x.Group).WithMany(x => x.Students);
         builder.Navigation(x => x.Group).AutoInclude();
+        builder.HasMany("_lessons").WithMany();
+        builder.Ignore(x => x.AttendedLessons);
+        builder.Navigation("_lessons").AutoInclude();
 
     }
 }

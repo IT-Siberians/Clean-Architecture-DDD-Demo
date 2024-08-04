@@ -17,8 +17,8 @@ public class VisitingApplicationService(IRepository<Lesson, Guid> lessonsReposit
         var lesson = await lessonsRepository.GetByIdAsync(visitInformation.LessonId);
         if (lesson is null)
             return false;
-       /* if (student.AttendedLessons.Contains(lesson))
-            return false;*/
+        if (student.AttendedLessons.Contains(lesson))
+            return false;
         if (lesson.State != LessonStatus.Teached)
             return false;
         student.AttendLesson(lesson);
