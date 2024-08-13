@@ -30,30 +30,26 @@ namespace GradeBookMicroservice.Infrastructure.EntityFramework.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TeacherId1 = table.Column<Guid>(type: "uuid", nullable: false),
                     StudentId1 = table.Column<Guid>(type: "uuid", nullable: false),
+                    LessonId = table.Column<Guid>(type: "uuid", nullable: false),
                     GradedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Mark = table.Column<int>(type: "integer", nullable: false),
-                    StudentId = table.Column<Guid>(type: "uuid", nullable: true),
-                    TeacherId = table.Column<Guid>(type: "uuid", nullable: true)
+                    Comment = table.Column<string>(type: "text", nullable: true),
+                    Mark = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Grades", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Grades_Students_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Students",
-                        principalColumn: "Id");
+                        name: "FK_Grades_Lessons_LessonId",
+                        column: x => x.LessonId,
+                        principalTable: "Lessons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Grades_Students_StudentId1",
                         column: x => x.StudentId1,
                         principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Grades_Teachers_TeacherId",
-                        column: x => x.TeacherId,
-                        principalTable: "Teachers",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Grades_Teachers_TeacherId1",
                         column: x => x.TeacherId1,
@@ -63,19 +59,14 @@ namespace GradeBookMicroservice.Infrastructure.EntityFramework.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Grades_StudentId",
+                name: "IX_Grades_LessonId",
                 table: "Grades",
-                column: "StudentId");
+                column: "LessonId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Grades_StudentId1",
                 table: "Grades",
                 column: "StudentId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Grades_TeacherId",
-                table: "Grades",
-                column: "TeacherId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Grades_TeacherId1",

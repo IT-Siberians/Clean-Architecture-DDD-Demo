@@ -16,6 +16,7 @@ public class GradeConfiguration : IEntityTypeConfiguration<Grade>
             src => src.Kind == DateTimeKind.Utc ? src : DateTime.SpecifyKind(src, DateTimeKind.Utc),
             dst => dst.Kind == DateTimeKind.Utc ? dst : DateTime.SpecifyKind(dst, DateTimeKind.Utc)
         );;
+        builder.Property(x => x.Comment).IsRequired(false);
         builder.HasOne(x => x.Student).WithMany("_grades");
         builder.HasOne(x => x.Teacher).WithMany("_grades");
         builder.HasOne(x => x.Lesson).WithMany();

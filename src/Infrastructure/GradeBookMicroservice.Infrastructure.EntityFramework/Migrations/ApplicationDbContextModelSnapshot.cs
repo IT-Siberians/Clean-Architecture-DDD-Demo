@@ -28,19 +28,19 @@ namespace GradeBookMicroservice.Infrastructure.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Comment")
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("GradedTime")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("LessonId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Mark")
                         .HasColumnType("integer");
 
-                    b.Property<Guid?>("StudentId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("StudentId1")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("TeacherId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("TeacherId1")
@@ -48,11 +48,9 @@ namespace GradeBookMicroservice.Infrastructure.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StudentId");
+                    b.HasIndex("LessonId");
 
                     b.HasIndex("StudentId1");
-
-                    b.HasIndex("TeacherId");
 
                     b.HasIndex("TeacherId1");
 
@@ -172,9 +170,11 @@ namespace GradeBookMicroservice.Infrastructure.EntityFramework.Migrations
 
             modelBuilder.Entity("GradeBookMicroservice.Domain.Entities.Grade", b =>
                 {
-                    b.HasOne("GradeBookMicroservice.Domain.Entities.Student", null)
-                        .WithMany("RecievedGrades")
-                        .HasForeignKey("StudentId");
+                    b.HasOne("GradeBookMicroservice.Domain.Entities.Lesson", "Lesson")
+                        .WithMany()
+                        .HasForeignKey("LessonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("GradeBookMicroservice.Domain.Entities.Student", "Student")
                         .WithMany("_grades")
@@ -182,15 +182,13 @@ namespace GradeBookMicroservice.Infrastructure.EntityFramework.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GradeBookMicroservice.Domain.Entities.Teacher", null)
-                        .WithMany("AssignedGrades")
-                        .HasForeignKey("TeacherId");
-
                     b.HasOne("GradeBookMicroservice.Domain.Entities.Teacher", "Teacher")
                         .WithMany("_grades")
                         .HasForeignKey("TeacherId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Lesson");
 
                     b.Navigation("Student");
 
@@ -249,15 +247,11 @@ namespace GradeBookMicroservice.Infrastructure.EntityFramework.Migrations
 
             modelBuilder.Entity("GradeBookMicroservice.Domain.Entities.Student", b =>
                 {
-                    b.Navigation("RecievedGrades");
-
                     b.Navigation("_grades");
                 });
 
             modelBuilder.Entity("GradeBookMicroservice.Domain.Entities.Teacher", b =>
                 {
-                    b.Navigation("AssignedGrades");
-
                     b.Navigation("_grades");
 
                     b.Navigation("_lessons");

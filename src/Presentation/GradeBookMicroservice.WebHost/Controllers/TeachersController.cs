@@ -60,7 +60,7 @@ public class TeachersController(ITeachersApplicationService teachersApplicationS
             return BadRequest("Lesson has beed teached yet");
         var success = await teachingApplicationService.TeachLessonAsync(mapper.Map<TeachLessonModel>(request));
         if (!success)
-            return BadRequest("Lesson has beed teached yet");
+            return BadRequest("Lesson has been teached yet");
         return NoContent();
     }
     [HttpPost("grade")]

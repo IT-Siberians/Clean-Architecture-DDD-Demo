@@ -49,7 +49,7 @@ public class Lesson : Entity<Guid>
     }
     private static void ValidateLessonSchedule(DateTime classTime)
     {
-        if (classTime < DateTime.Today)
+        if (classTime.ToUniversalTime() < DateTime.Today.ToUniversalTime())
             throw new InvalidLessonScheduleTimeException(classTime);
 
     }

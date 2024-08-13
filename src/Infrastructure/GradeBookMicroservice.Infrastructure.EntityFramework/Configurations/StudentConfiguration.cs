@@ -19,8 +19,6 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
         builder.Navigation(x => x.Group).AutoInclude();
         builder.HasMany("_lessons").WithMany();
         builder.Ignore(x => x.AttendedLessons);
-        builder.Navigation("_lessons").AutoInclude();
-        builder.Navigation("_grades").AutoInclude();
         builder.Ignore(x => x.RecievedGrades);
 
     }

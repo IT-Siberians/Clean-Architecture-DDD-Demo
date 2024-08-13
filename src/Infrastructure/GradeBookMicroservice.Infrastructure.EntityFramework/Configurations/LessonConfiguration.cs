@@ -19,7 +19,5 @@ public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
                         .HasConversion(topic => topic.Topic, topic => new LessonTopic(topic));
         builder.HasOne(x => x.Group).WithMany();
         builder.HasOne(x => x.Teacher).WithMany("_lessons");
-        builder.Navigation(x => x.Group).AutoInclude();
-        builder.Navigation(x => x.Teacher).AutoInclude();
     }
 }

@@ -19,6 +19,5 @@ public class GroupConfiguration : IEntityTypeConfiguration<Group>
         builder.HasIndex(x => x.Name).IsUnique();
         builder.Property(x => x.Description).IsRequired();
         builder.HasMany(x => x.Students).WithOne(x => x.Group);
-        //builder.Navigation(x => x.Students).AutoInclude();
     }
 }
