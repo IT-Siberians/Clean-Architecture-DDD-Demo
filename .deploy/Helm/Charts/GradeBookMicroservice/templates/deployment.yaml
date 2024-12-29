@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ tpl .Values.deployment.name . }}
+  labels:
+    app: {{ tpl .Values.deployment.name . }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ tpl .Values.deployment.name . }}
+  template:
+    metadata:
+      name: {{ tpl .Values.deployment.name . }}
+      labels:
+        app: {{ tpl .Values.deployment.name . }}
+    spec:
+      containers:
+        - name: {{ tpl .Values.deployment.name . }}
+          image: {{ .Values.image.repository }}/{{ .Values.image.image }}:{{ .Values.image.version }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.application.port }}
+              protocol: TCP
+          env:
+            - name: DbUser
+              valueFrom:
+                secretKeyRef:
+                  key: "username"
+                  name: {{ tpl .Values.postgresSecret.name . }}
+            - name: DbPassword
+              valueFrom:
+                secretKeyRef:
+                  key: "password"
+                  name: {{ tpl .Values.postgresSecret.name . }}
+            - name: DbHost
+              valueFrom:
+                configMapKeyRef:
+                  key: "host"
+                  name: {{ tpl .Values.postgresConfigMap.name . }}
+
+                             
+          resources:
+            limits:
+              memory: {{ .Values.limits.memory }}
+              cpu: {{ .Values.limits.cpu }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.livenessProbe.path }}
+              port: {{ .Values.application.port }}
+            timeoutSeconds: {{ .Values.livenessProbe.timeout }}
+            periodSeconds: {{ .Values.livenessProbe.period }}
+            initialDelaySeconds: {{ .Values.livenessProbe.delay }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.readinessProbe.path }}
+              port: {{ .Values.application.port }}
+            periodSeconds: {{ .Values.readinessProbe.period }}
+            timeoutSeconds: {{ .Values.readinessProbe.timeout }}
+            initialDelaySeconds: {{ .Values.readinessProbe.delay }}
+      imagePullSecrets:
+        - name: regcred
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: {{ .Values.rollingUpdate.maxUnavailable }}
+      maxSurge: {{ .Values.rollingUpdate.maxSurge }}
+    
+          
+
+      

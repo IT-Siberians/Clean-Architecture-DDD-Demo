@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  serviceName: {{ tpl .Values.service.name .}}
+  replicas: {{ .Values.replicas }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      containers:
+      - name: {{ .Values.name }}
+        image: {{.Values.postgres.image}}:{{.Values.postgres.version}}
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: POSTGRES_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: username
+              name: {{ tpl .Values.secret.name . }}
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: {{ tpl .Values.secret.name . }}
+        resources:
+            limits:
+              memory: {{ .Values.resources.memory }}
+              cpu: {{ .Values.resources.cpu }}
+        livenessProbe:
+          exec:
+            command:
+              - pg_isready
+              - -q
+              - -d
+              - "$POSTGRES_USERNAME"
+              - "-U"
+              - "$POSTGRES_PASSWORD"
+          initialDelaySeconds: {{.Values.livenessProbe.delay}}
+          periodSeconds: {{.Values.livenessProbe.period}}
+          timeoutSeconds: {{.Values.livenessProbe.timeout}}
+        ports:
+        - containerPort: {{.Values.postgres.port}}
+
+

@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ tpl .Values.ingress.name . }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - pathType: ImplementationSpecific
+            path: "/"
+            backend:
+              service:
+                name: test-nginx-svc
+                port:
+                  number: 80
+          - pathType: Prefix
+            path: "/api/v1/"
+            backend:
+              service:
+                name: {{ tpl .Values.service.name . }}
+                port:
+                  number: {{ .Values.service.port }}

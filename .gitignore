@@ -15,10 +15,10 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
-
+*.env
 # Mono auto generated files
 mono_crash.*
-
+*.development.json
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-application-deployment
+  namespace: volumes-lesson
+  labels:
+    app: web-application-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-application-deployment
+  template:
+    metadata:
+      name: web-application-deployment
+      labels:
+        app: web-application-deployment
+    spec:
+      containers:
+        - name: web-application-deployment
+          image: oleggolen/otus-kuber-second-lesson
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: DbUser
+              value: postgres
+            - name: DbPassword
+              value: otus
+            - name: DbHost
+              value: postgres-db-service
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            timeoutSeconds: 5
+            periodSeconds: 5
+            initialDelaySeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /api/v1/lessons
+              port: 8080
+            periodSeconds: 20
+            timeoutSeconds: 20
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+    
+          
+
+      

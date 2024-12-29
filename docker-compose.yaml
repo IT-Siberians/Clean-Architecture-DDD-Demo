@@ -2,15 +2,33 @@ services:
   db:
     image: postgres
     restart: unless-stopped
-    environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "otus"
+    env_file:
+      - database.env
     volumes:
       - ./data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "otus" ]
+      test: [ "CMD", "pg_isready", "-q", "-d", "$POSTGRES_USERNAME", "-U", "$POSTGRES_PASSWORD" ]
       interval: 5s
       timeout: 5s
       retries: 5
     ports:
       - "5432:5432"
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - SiteName=GradeBookMicroservice.WebHost
+        - ProjectPath=./src
+    ports:
+      - "8080:8080"
+    env_file:
+      - application.env
+    healthcheck:
+      test: ["CMD","curl", "http://localhost:8080/health"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    depends_on:
+      db:
+        condition: service_healthy

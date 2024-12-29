@@ -8,13 +8,20 @@ using GradeBookMicroservice.Infrastructure.Repositories.Implementations.Ef;
 using GradeBookMicroservice.WebHost.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Configuration.AddEnvironmentVariables();
+builder.Configuration.AddJsonFile("appsettings.json", true, true);
+builder.Configuration.AddJsonFile("appsettings.Development.json", true, true);
+var dbUser = builder.Configuration.GetValue<string>("DbUser");
+var dbPassword = builder.Configuration.GetValue<string>("DbPassword");
+var dbHost = builder.Configuration.GetValue<string>("DbHost");
 // Add services to the container.
-builder.Services.AddNpgsql<ApplicationDbContext>("Host=localhost;Port=5432;Username=postgres;Password=otus", options => 
+var connectionString = $"Host={dbHost};Port=5432;Username={dbUser};Password={dbPassword}";
+builder.Services.AddNpgsql<ApplicationDbContext>(connectionString, options => 
 {
     options.MigrationsAssembly("GradeBookMicroservice.Infrastructure.EntityFramework");
 
 });
+builder.Services.AddHealthChecks().AddDbContextCheck<ApplicationDbContext>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -42,7 +49,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
-
 app.MapControllers();
+app.MapHealthChecks("/health");
 app.MigrateDatabase<ApplicationDbContext>();
 app.Run();

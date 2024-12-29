@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ tpl .Values.postgresConfigMap.name . }}
+data:
+  host: {{ tpl .Values.Postgres.postgres.host . }}
+  
