@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: {{ tpl .Values.deployment.name . }}
-          image: {{ .Values.image.repository }}/{{ .Values.image.image }}:{{ .Values.image.version }}
+          image: registry.gitlab.com/oleggolen/clean-architecture-ddd-demo
           imagePullPolicy: Always
           ports:
             - containerPort: {{ .Values.application.port }}

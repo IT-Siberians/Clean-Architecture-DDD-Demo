@@ -15,8 +15,12 @@ spec:
     spec:
       containers:
       - name: {{ .Values.name }}
-        image: {{.Values.postgres.image}}:{{.Values.postgres.version}}
+        image: {{ .Values.postgres.image }}:{{ .Values.postgres.version }}
         imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - mountPath: /var/lib/postgresql/data
+            name: data
+            subPath: postgres-storage
         env:
         - name: POSTGRES_USERNAME
           valueFrom:
@@ -46,5 +50,8 @@ spec:
           timeoutSeconds: {{.Values.livenessProbe.timeout}}
         ports:
         - containerPort: {{.Values.postgres.port}}
-
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ tpl .Values.pvc.name . }}
 

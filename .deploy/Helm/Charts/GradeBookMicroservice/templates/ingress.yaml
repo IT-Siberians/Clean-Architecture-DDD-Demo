@@ -7,18 +7,10 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   rules:
-    - host: {{ .Values.ingress.host }}
-      http:
-        paths:
-          - pathType: ImplementationSpecific
-            path: "/"
-            backend:
-              service:
-                name: test-nginx-svc
-                port:
-                  number: 80
+      - http:
+          paths:
           - pathType: Prefix
-            path: "/api/v1/"
+            path: "/"
             backend:
               service:
                 name: {{ tpl .Values.service.name . }}
