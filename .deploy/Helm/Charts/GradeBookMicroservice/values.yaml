@@ -1,0 +1,58 @@
+deployment:
+  name: "{{ kebabcase .Chart.Name }}-deployment"
+  replicas: 1
+
+Postgres: 
+  name: "grade-book-database"
+  postgres: 
+    host: "{{ .Values.Postgres.service.name }}"
+    username: postgres
+    password: otus
+  service:
+    name: "grade-book-db"
+  
+
+application:
+  port: 8080
+  
+
+service:
+  name: "{{ kebabcase .Chart.Name }}-service"
+  port: 80
+  type: ClusterIP
+
+limits:
+  cpu: "500m"
+  memory: "500Mi"
+  
+image:
+  repository: registry.gilab.com/oleggolen
+  image: clean-architecture-ddd-demo
+  version: latest
+
+livenessProbe:
+  path: /health
+  timeout: 5
+  period: 5
+  delay: 20
+  
+readinessProbe:
+  path: /api/v1/lessons
+  period: 20
+  timeout: 20
+  delay: 20
+
+rollingUpdate:
+  maxUnavailable: 1
+  maxSurge: 1
+  
+ingress:
+  name: "{{ kebabcase .Chart.Name }}-ingress"
+  className: nginx
+  host: web-app
+  
+postgresSecret:
+  name: "{{ .Values.Postgres.name }}-application-secret"
+
+postgresConfigMap:
+  name: "{{ .Values.Postgres.name }}-config"

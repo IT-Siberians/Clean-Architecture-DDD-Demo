@@ -1,0 +1,29 @@
+namespace: grade-book-microservice
+replicas: 1
+name: postgres
+postgres:
+  port: 5432
+  image: postgres
+  version: latest
+  username: postgress
+  password: otus
+  size: 1Gi
+livenessProbe:
+  delay: 10
+  period: 5
+  timeout: 10
+resources:
+  cpu: "500m"
+  memory: "500Mi"
+service:
+  name: "{{ .Values.name }}-svc"
+  
+secret:
+  name: "{{ .Values.name }}-secret"
+  
+pvc:
+  name: "{{ .Values.name }}-pvc"
+  
+storageClass:
+  name: "{{ .Values.name }}-storage-class"
+  

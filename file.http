@@ -1,0 +1,10 @@
+GET http://yandex.ru
+
+###
+POST http://yandex.ru
+Content-Type: application/json
+
+{
+  "name": "Oleg",
+  "value": 4
+}

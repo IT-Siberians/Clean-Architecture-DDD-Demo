@@ -18,9 +18,15 @@ public class GroupsController(IGroupsApplicationService groupsApplicationService
         var groups = await groupsApplicationService.GetAllGroupsAsync();
         return Ok(groups.Select(mapper.Map<GroupShortResponse>));
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GroupDetailedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Guid))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
     public async Task<IActionResult> GetGroupById(Guid id)
     {
         var group = await groupsApplicationService.GetGroupByIdAsync(id);
@@ -51,4 +57,12 @@ public class GroupsController(IGroupsApplicationService groupsApplicationService
         return Created("", mapper.Map<GroupShortResponse>(group));
 
     }
+    [HttpPatch("{id:guid}")]
+    public async Task<IActionResult> EditName(Guid id, [FromBody] string name)
+    {
+        
+        return NoContent();
+    }
+    
+    
 }
