@@ -16,6 +16,7 @@ var dbPassword = builder.Configuration.GetValue<string>("DbPassword");
 var dbHost = builder.Configuration.GetValue<string>("DbHost");
 // Add services to the container.
 var connectionString = $"Host={dbHost};Port=5432;Username={dbUser};Password={dbPassword}";
+Console.WriteLine(connectionString);
 builder.Services.AddNpgsql<ApplicationDbContext>(connectionString, options => 
 {
     options.MigrationsAssembly("GradeBookMicroservice.Infrastructure.EntityFramework");
