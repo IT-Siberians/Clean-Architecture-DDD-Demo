@@ -1,27 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: web-app-ingress
-  namespace: volumes-lesson
+  name: grade-book-microservice-ingress
+  namespace: grade-book-microservice
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
-    - host: web-app
-      http:
+    - http:
         paths:
-          - pathType: ImplementationSpecific
+          - pathType: Prefix
             path: "/"
             backend:
               service:
-                name: web-app-service
+                name: grade-book-microservice-service
                 port:
                   number: 80
-          - pathType: Prefix
-            path: "/api"
-            backend:
-              service:
-                name: web-app-service
-                port:
-                  number: 08

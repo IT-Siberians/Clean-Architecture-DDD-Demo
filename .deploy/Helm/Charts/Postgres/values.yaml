@@ -26,4 +26,4 @@ pvc:
   
 storageClass:
   name: "{{ .Values.name }}-storage-class"
-  
+  type: minikube

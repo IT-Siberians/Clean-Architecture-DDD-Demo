@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: {{ tpl .Values.pvc.name . }}
 spec:
-  storageClassName: {{ tpl  .Values.storageClass.name  . }}
+  storageClassName: {{ tpl  .Values.storageClass.name  . }}-{{ .Values.storageClass.type }}
   resources:
     requests:
       storage: {{ .Values.postgres.size }}

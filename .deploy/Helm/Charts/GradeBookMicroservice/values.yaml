@@ -1,6 +1,6 @@
 deployment:
   name: "{{ kebabcase .Chart.Name }}-deployment"
-  replicas: 1
+  replicas: 3
 
 Postgres: 
   name: "grade-book-database"

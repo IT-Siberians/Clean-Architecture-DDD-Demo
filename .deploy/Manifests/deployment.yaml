@@ -1,35 +1,44 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-application-deployment
-  namespace: volumes-lesson
+  name: grade-book-microservice-deployment
+  namespace: grade-book-microservice
   labels:
-    app: web-application-deployment
+    app: grade-book-microservice-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: web-application-deployment
+      app: grade-book-microservice-deployment
   template:
     metadata:
-      name: web-application-deployment
+      name: grade-book-microservice-deployment
       labels:
-        app: web-application-deployment
+        app: grade-book-microservice-deployment
     spec:
       containers:
         - name: web-application-deployment
-          image: oleggolen/otus-kuber-second-lesson
-          imagePullPolicy: IfNotPresent
+          image: registry.gitlab.com/oleggolen/clean-architecture-ddd-demo:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
               protocol: TCP
           env:
             - name: DbUser
-              value: postgres
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: grade-book-database-secret
             - name: DbPassword
-              value: otus
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: grade-book-database-secret
             - name: DbHost
-              value: postgres-db-service
+              valueFrom:
+                configMapKeyRef:
+                  key: host
+                  name: grade-book-database-config
           resources:
             limits:
               memory: "128Mi"

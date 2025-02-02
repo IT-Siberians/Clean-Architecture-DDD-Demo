@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: grade-book-database
+  namespace: grade-book-microservice
+spec:
+  selector:
+    matchLabels:
+      app: grade-book-database
+  serviceName: grade-book-database
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: grade-book-database
+    spec:
+      containers:
+        - name: grade-book-database
+          image: postgres
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: data
+              subPath: postgres-storage
+          env:
+            - name: POSTGRES_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: grade-book-database-secret
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: grade-book-database-secret
+          resources:
+            limits:
+              memory: "500Mi"
+              cpu: "500m"
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -q
+                - -d
+                - "$POSTGRES_USERNAME"
+                - "-U"
+                - "$POSTGRES_PASSWORD"
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 10
+          ports:
+            - containerPort: 5432
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: grade-book-database-pvc
+

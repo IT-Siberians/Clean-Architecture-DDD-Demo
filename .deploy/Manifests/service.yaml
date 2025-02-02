@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-app-service
-  namespace: volumes-lesson
+  name: grade-book-microservice-service
+  namespace: grade-book-microservice
 spec:
   selector:
-    app: web-application-deployment
+    app: grade-book-microservice-deployment
   ports:
     - protocol: TCP
       port: 80

@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-db-service
+  name: grade-book-db
   namespace: grade-book-microservice
 spec:
   selector:
-    app: postgres-db
+    app: grade-book-database
   ports:
     - protocol: TCP
       port: 5432
