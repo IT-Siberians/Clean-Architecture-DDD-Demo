@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       app: grade-book-database
-  serviceName: grade-book-database
+  serviceName: grade-book-db
   replicas: 1
   template:
     metadata:

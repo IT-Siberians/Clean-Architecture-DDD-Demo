@@ -6,7 +6,7 @@ metadata:
   labels:
     app: grade-book-microservice-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: grade-book-microservice-deployment
@@ -17,7 +17,7 @@ spec:
         app: grade-book-microservice-deployment
     spec:
       containers:
-        - name: web-application-deployment
+        - name: grade-book-microservice-deployment
           image: registry.gitlab.com/oleggolen/clean-architecture-ddd-demo:latest
           imagePullPolicy: Always
           ports:
@@ -39,6 +39,7 @@ spec:
                 configMapKeyRef:
                   key: host
                   name: grade-book-database-config
+
           resources:
             limits:
               memory: "128Mi"
