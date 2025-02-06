@@ -30,20 +30,13 @@ build:
   image: $DOTNET_IMAGE
   script:
     - dotnet build $SOLUTION_PATH
-  rules:
-    - if: $CI_COMMIT_BRANCH
-      exists:
-        - $SOLUTION_PATH
 
 test:
   stage: test
   image: $DOTNET_IMAGE
   script:
     - dotnet test $SOLUTION_PATH
-  rules:
-    - if: $CI_COMMIT_BRANCH
-      exists:
-        - $SOLUTION_PATH
+
 
 
 docker-build:
@@ -78,10 +71,6 @@ helm_validate:
   script:
     - helm dependency build $CHART_PATH
     - helm lint $CHART_PATH
-  rules:
-    - if: $CI_COMMIT_BRANCH
-      exists:
-        - $DEFAULT_CHART_FILE_NAME
   tags:
     - $DOCKER_RUNNER_TAG
 
@@ -93,11 +82,6 @@ helm_build:
       --username ${CI_REGISTRY_USER}
       --password ${CI_REGISTRY_PASSWORD}
       ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/helm/stable
-
-  rules:
-    - if: $CI_COMMIT_BRANCH
-      exists:
-        - $DEFAULT_CHART_FILE_NAME
   script:
     - helm package $CHART
     - helm push $CHART*.tgz $CHART
