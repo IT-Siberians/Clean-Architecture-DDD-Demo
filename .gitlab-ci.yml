@@ -83,9 +83,6 @@ helm_validate:
   script:
     - helm dependency build $CHART_PATH
     - helm lint $CHART_PATH
-  only:
-    changes:
-      - $CHART_PATH/*
   rules:
     - if: $CI_COMMIT_BRANCH
       exists:
