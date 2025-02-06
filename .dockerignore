@@ -23,5 +23,6 @@
 **/values.dev.yaml
 **/appsettings.Development.json
 **/env
+**/data/
 LICENSE
 README.md
