@@ -89,9 +89,9 @@ helm_validate:
   rules:
     - if: $CI_COMMIT_BRANCH
       exists:
-        - DEFAULT_CHART_FILE_NAME
+        - $DEFAULT_CHART_FILE_NAME
   tags:
-    - DOCKER_RUNNER_TAG
+    - $DOCKER_RUNNER_TAG
 
 helm_build:
   image: $HELM_IMAGE
