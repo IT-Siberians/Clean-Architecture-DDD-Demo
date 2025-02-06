@@ -24,13 +24,12 @@ variables:
   HELM_IMAGE: alpine/helm
   DOCKER_RUNNER_TAG: docker
   CHART: grade-book-microservice
+  
 build:
   stage: build
   image: $DOTNET_IMAGE
   script:
     - dotnet build $SOLUTION_PATH
-  tags:
-    - $DOCKER_RUNNER_TAG
   rules:
     - if: $CI_COMMIT_BRANCH
       exists:
@@ -41,8 +40,6 @@ test:
   image: $DOTNET_IMAGE
   script:
     - dotnet test $SOLUTION_PATH
-  tags:
-    - DOCKER_RUNNER_TAG
   rules:
     - if: $CI_COMMIT_BRANCH
       exists:
@@ -74,8 +71,6 @@ docker-build:
     - if: $CI_COMMIT_BRANCH
       exists:
         - Dockerfile
-  tags:
-    - DOCKER_RUNNER_TAG
 
 helm_validate:
   stage: containerize
@@ -92,8 +87,6 @@ helm_validate:
 
 helm_build:
   image: $HELM_IMAGE
-  tags:
-    - $DOCKER_RUNNER_TAG
   before_script:
     - >
       helm repo add ${CHART}
