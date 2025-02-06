@@ -94,8 +94,6 @@ helm_build:
   image: $HELM_IMAGE
   tags:
     - $DOCKER_RUNNER_TAG
-  dependencies:
-    - helm_validate
   before_script:
     - >
       helm repo add ${CHART}
