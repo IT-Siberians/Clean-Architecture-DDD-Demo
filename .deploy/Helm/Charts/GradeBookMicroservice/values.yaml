@@ -2,7 +2,14 @@ deployment:
   name: "{{ kebabcase .Chart.Name }}-deployment"
   replicas: 3
 
-Postgres: 
+Postgres:
+  prometheus-postgres-exporter:
+    config:
+      datasource:
+        host: grade-book-db
+        user: "postgres"
+        password: "otus"
+        database: "postgres"
   name: "grade-book-database"
   postgres: 
     host: "{{ .Values.Postgres.service.name }}"
@@ -15,6 +22,8 @@ Postgres:
 application:
   port: 8080
   
+monitor:
+  name: "{{ kebabcase .Chart.Name }}-monitor"
 
 service:
   name: "{{ kebabcase .Chart.Name }}-service"
@@ -49,7 +58,7 @@ rollingUpdate:
 ingress:
   name: "{{ kebabcase .Chart.Name }}-ingress"
   className: nginx
-  host: web-app
+  host: "gradebook.ipgolenischev.ru"
   
 postgresSecret:
   name: "{{ .Values.Postgres.name }}-application-secret"

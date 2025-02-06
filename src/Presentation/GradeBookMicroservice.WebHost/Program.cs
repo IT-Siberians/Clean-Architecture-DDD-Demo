@@ -6,6 +6,7 @@ using GradeBookMicroservice.Domain.Repositories.Abstractions;
 using GradeBookMicroservice.Infrastructure.EntityFramework;
 using GradeBookMicroservice.Infrastructure.Repositories.Implementations.Ef;
 using GradeBookMicroservice.WebHost.Helpers;
+using OpenTelemetry.Metrics;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddEnvironmentVariables();
@@ -16,6 +17,17 @@ var dbPassword = builder.Configuration.GetValue<string>("DbPassword");
 var dbHost = builder.Configuration.GetValue<string>("DbHost");
 // Add services to the container.
 var connectionString = $"Host={dbHost};Port=5432;Username={dbUser};Password={dbPassword}";
+builder.Services.AddOpenTelemetry().WithMetrics(metrics =>
+{
+    metrics.AddHttpClientInstrumentation();
+    metrics.AddAspNetCoreInstrumentation();
+    metrics.AddMeter("Microsoft.AspNetCore.Hosting");
+    metrics.AddMeter("Microsoft.AspNetCore.Server.Kestrel");
+    metrics.AddMeter("System.Net.Http");
+    metrics.AddPrometheusExporter();
+    metrics.AddOtlpExporter();
+
+});
 builder.Services.AddNpgsql<ApplicationDbContext>(connectionString, options => 
 {
     options.MigrationsAssembly("GradeBookMicroservice.Infrastructure.EntityFramework");
@@ -50,6 +62,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 app.MapControllers();
+app.MapPrometheusScrapingEndpoint();
 app.MapHealthChecks("/health");
 app.MigrateDatabase<ApplicationDbContext>();
 app.Run();

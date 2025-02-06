@@ -7,12 +7,13 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   rules:
-      - http:
-          paths:
-          - pathType: Prefix
-            path: "/"
-            backend:
-              service:
-                name: {{ tpl .Values.service.name . }}
-                port:
-                  number: {{ .Values.service.port }}
+        - host: {{ .Values.ingress.host }}
+          http:
+            paths:
+            - pathType: Prefix
+              path: "/"
+              backend:
+                service:
+                  name: {{ tpl .Values.service.name . }}
+                  port:
+                    number: {{ .Values.service.port }}
