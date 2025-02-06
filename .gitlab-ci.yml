@@ -102,9 +102,7 @@ helm_build:
       --username ${CI_REGISTRY_USER}
       --password ${CI_REGISTRY_PASSWORD}
       ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/helm/stable
-  only:
-    changes:
-      - ${CHART_PATH}/*
+
   rules:
     - if: $CI_COMMIT_BRANCH
       exists:
