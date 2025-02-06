@@ -85,6 +85,6 @@ helm_build:
   script:
     - helm dependency build $CHART_PATH
     - helm package $CHART_PATH
-    - helm cm-push $CHART_PATH *.tgz $CHART
+    - helm cm-push $CHART_PATH\$CHART.tgz $CHART
     
 
