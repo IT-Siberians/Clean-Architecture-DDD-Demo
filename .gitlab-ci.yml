@@ -76,6 +76,7 @@ helm_validate:
 
 helm_build:
   image: $HELM_IMAGE
+  stage: containerize
   before_script:
     - >
       helm repo add ${CHART}
