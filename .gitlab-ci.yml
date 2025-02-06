@@ -71,8 +71,6 @@ helm_validate:
   script:
     - helm dependency build $CHART_PATH
     - helm lint $CHART_PATH
-  tags:
-    - $DOCKER_RUNNER_TAG
 
 helm_build:
   image: $HELM_IMAGE
