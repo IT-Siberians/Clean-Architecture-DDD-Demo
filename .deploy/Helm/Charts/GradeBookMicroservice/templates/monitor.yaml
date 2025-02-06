@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app: {{ tpl .Values.service.name . }}
-      
+      release: {{ .Values.monitor.release }}
   endpoints:
   - port: http
     path: /metrics

@@ -30,6 +30,7 @@ storageClass:
 
 monitor:
   name: "{{ .Values.name }}-monitor"
+  release: "grade-book"
   
 prometheus-postgres-exporter:
   service: 
