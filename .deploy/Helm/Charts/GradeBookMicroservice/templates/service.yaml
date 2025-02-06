@@ -2,6 +2,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ tpl .Values.service.name . }}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: /metrics
+    prometheus.io/port: http
 spec:
   selector:
     app: {{ tpl .Values.deployment.name . }}
