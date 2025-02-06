@@ -76,14 +76,15 @@ helm_build:
   image: $HELM_IMAGE
   stage: containerize
   before_script:
+    - helm plugin install https://github.com/chartmuseum/helm-push
     - >
       helm repo add ${CHART}
       --username ${CI_REGISTRY_USER}
       --password ${CI_REGISTRY_PASSWORD}
-      oci://${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/helm/stable
+      ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/helm/stable
   script:
     - helm dependency build $CHART_PATH
     - helm package $CHART_PATH
-    - helm push $CHART_PATH *.tgz $CHART
+    - helm cm-push $CHART_PATH *.tgz $CHART
     
 
