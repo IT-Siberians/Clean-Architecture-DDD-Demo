@@ -27,3 +27,16 @@ pvc:
 storageClass:
   name: "{{ .Values.name }}-storage-class"
   type: minikube
+
+monitor:
+  name: "{{ .Values.name }}-monitor"
+  
+prometheus-postgres-exporter:
+  service: 
+    annotations:
+      prometheus.io/path: /metrics
+      prometheus.io/scrape: "true"
+  serviceMonitor: 
+    enabled: true
+    labels:
+      release: prometheus
