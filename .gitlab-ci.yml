@@ -82,6 +82,7 @@ helm_build:
       --password ${CI_REGISTRY_PASSWORD}
       ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/helm/stable
   script:
+    - helm dependency build $CHART_PATH
     - helm package $CHART_PATH
     - helm push $CHART_PATH\$CHART *.tgz $CHART
     
