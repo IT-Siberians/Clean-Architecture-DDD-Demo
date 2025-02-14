@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: "{{ tpl .Values.ingress.name . }}"
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: "/api/v1/$1"
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   rules:

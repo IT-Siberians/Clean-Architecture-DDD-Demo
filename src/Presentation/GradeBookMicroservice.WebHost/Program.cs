@@ -64,5 +64,6 @@ app.MapControllers();
 app.MapPrometheusScrapingEndpoint();
 app.MapHealthChecks("/health");
 app.MapGet("/", () => "Hello World!");
+app.MapGet("/{id}", (string id) => $"Hello {id}");
 app.MigrateDatabase<ApplicationDbContext>();
 app.Run();
