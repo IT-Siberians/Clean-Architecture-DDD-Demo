@@ -59,7 +59,7 @@ ingress:
   name: "{{ kebabcase .Chart.Name }}-ingress"
   className: nginx
   host: "lms.ipgolenischev.ru"
-  prefix: /gradebook
+  prefix: "/gradebook"
   
 postgresSecret:
   name: "{{ .Values.Postgres.name }}-application-secret"

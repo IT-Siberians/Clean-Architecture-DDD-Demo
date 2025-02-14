@@ -59,10 +59,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseAuthorization();
 app.MapControllers();
 app.MapPrometheusScrapingEndpoint();
 app.MapHealthChecks("/health");
+app.MapGet("/", () => "Hello World!");
 app.MigrateDatabase<ApplicationDbContext>();
 app.Run();

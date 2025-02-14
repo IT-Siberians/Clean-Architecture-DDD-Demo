@@ -1,19 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ tpl .Values.ingress.name . }}
+  name: "{{ tpl .Values.ingress.name . }}"
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: "/api/v1/$1"
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   rules:
-        - host: {{ .Values.ingress.host }}
-          http:
-            paths:
-            - pathType: Prefix
-              path: {{ .Values.ingress.prefix }}
-              backend:
-                service:
-                  name: {{ tpl .Values.service.name . }}
-                  port:
-                    number: {{ .Values.service.port }}
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: "/gradebook"
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ tpl .Values.service.name . }}
+                port:
+                  number: {{ .Values.service.port }}
