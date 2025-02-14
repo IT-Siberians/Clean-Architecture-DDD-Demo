@@ -35,8 +35,8 @@ limits:
   memory: "500Mi"
   
 image:
-  repository: registry.gilab.com/oleggolen
-  image: clean-architecture-ddd-demo
+  repository: registry.gitlab.com/lms-project-otus
+  image: gradeboookmicroservice
   version: latest
 
 livenessProbe:
@@ -58,7 +58,8 @@ rollingUpdate:
 ingress:
   name: "{{ kebabcase .Chart.Name }}-ingress"
   className: nginx
-  host: "gradebook.ipgolenischev.ru"
+  host: "lms.ipgolenischev.ru"
+  prefix: /gradebook
   
 postgresSecret:
   name: "{{ .Values.Postgres.name }}-application-secret"

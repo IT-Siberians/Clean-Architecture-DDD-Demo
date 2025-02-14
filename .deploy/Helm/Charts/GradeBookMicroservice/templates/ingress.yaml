@@ -11,7 +11,7 @@ spec:
           http:
             paths:
             - pathType: Prefix
-              path: "/"
+              path: {{ .Values.ingress.prefix }}
               backend:
                 service:
                   name: {{ tpl .Values.service.name . }}
