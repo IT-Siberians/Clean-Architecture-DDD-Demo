@@ -9,7 +9,9 @@
 #
 # This template uses one generic job with conditional builds
 # for the default branch and all other (MR) branches.
-
+stages:
+  - build
+  - notify
 docker-build:
   # Use the official docker image.
   stage: build
@@ -35,3 +37,12 @@ docker-build:
     - if: $CI_COMMIT_BRANCH
       exists:
         - Dockerfile
+notify_telegram:
+  stage: notify
+  script:
+    - curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+        -d "chat_id=${TELEGRAM_CHAT_ID}" \
+        -d "text=Pipeline was finished" \
+        -d "parse_mode=Markdown"
+  when: always
+
