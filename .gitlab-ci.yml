@@ -26,12 +26,20 @@ docker-build:
   # Default branch is also tagged with `latest`
   script:
     - docker build --pull -t "$DOCKER_IMAGE_NAME" --build-arg ProjectPath=./src --build-arg SiteName=GradeBookMicroservice.WebHost .
+    - docker save -o image.tar "$DOCKER_IMAGE_NAME"
     - docker push "$DOCKER_IMAGE_NAME"
     - |
       if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
         docker tag "$DOCKER_IMAGE_NAME" "$CI_REGISTRY_IMAGE:latest"
         docker push "$CI_REGISTRY_IMAGE:latest"
       fi
+  artifacts:
+    paths:
+      - "image.tar"
+    untracked: false
+    when: on_success
+    access: all
+    expire_in: 1 days
   # Run this job in a branch where a Dockerfile exists
   rules:
     - if: $CI_COMMIT_BRANCH
