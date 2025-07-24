@@ -41,8 +41,6 @@ notify_telegram:
   stage: notify
   image: curlimages/curl
   script:
-    - curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-        -d "chat_id=${TELEGRAM_CHAT_ID}" \
-        -d "text= 'Pipeline was finished'" \
+    - curl -s -X POST "https://api.telegram.org/bot8297678999:AAFPS0QoltLYdcpqoM79Eeux_BHAlEGx24o/sendMessage" -d "chat_id=-1002772863665" -d "text=Pipeline was finished"
   when: always
 
