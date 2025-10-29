@@ -22,7 +22,7 @@ variables:
   DOTNET_IMAGE: mcr.microsoft.com/dotnet/sdk:8.0
   EXECUTABLE_PROJECT_PREFIX: WebHost
   DEFAULT_CHART_FILE_NAME: Chart.yaml
-  HELM_IMAGE: alpine/k8⁠s:latest
+  HELM_IMAGE: alpine/helm:latest
   DOCKER_RUNNER_TAG: docker
   CHART: grade-book-microservice
   
@@ -31,12 +31,18 @@ build:
   image: $DOTNET_IMAGE
   script:
     - dotnet build $SOLUTION_PATH
+  rules:
+    - changes: 
+      - $SOLUTION_FOLDER/*
 
 test:
   stage: test
   image: $DOTNET_IMAGE
   script:
     - dotnet test $SOLUTION_PATH
+  rules:
+    - changes: 
+      - $SOLUTION_FOLDER/*
 
 
 
@@ -66,15 +72,18 @@ docker-build:
     - if: $CI_COMMIT_BRANCH
       exists:
         - Dockerfile
+    - changes: 
+      - $SOLUTION_FOLDER/*
+      - Dockerfile
 
-helm_validate:
+helm-validate:
   stage: containerize
   image: $HELM_IMAGE
   script:
     - helm dependency build $CHART_PATH
     - helm lint $CHART_PATH
 
-helm_build:
+helm-build:
   image: $HELM_IMAGE
   stage: containerize
   before_script:
@@ -84,6 +93,8 @@ helm_build:
       --username ${CI_REGISTRY_USER}
       --password ${CI_REGISTRY_PASSWORD}
       ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/helm/stable
+  needs:
+    - helm-validate
   script:
     - helm dependency build $CHART_PATH
     - helm package $CHART_PATH
