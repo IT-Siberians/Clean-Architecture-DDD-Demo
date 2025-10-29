@@ -5,10 +5,8 @@ ARG ProjectPath
 
 # copy csproj and restore as distinct layers
 COPY $ProjectPath .
-RUN dotnet restore --use-current-runtime
-
-# copy everything else and build app
-RUN dotnet publish -c Release -o /app --use-current-runtime --self-contained false --no-restore
+RUN dotnet restore --use-current-runtime &&\ 
+    dotnet publish -c Release -o /app --use-current-runtime --self-contained false --no-restore
 
 # final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0

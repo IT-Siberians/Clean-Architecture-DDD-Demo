@@ -13,6 +13,7 @@ stages:
   - build
   - test
   - containerize
+  - deploy
 variables:
   CHART_PATH: ./.deploy/Helm/Charts/GradeBookMicroservice
   SOLUTION_NAME: GradeBookMicroservice
@@ -86,5 +87,11 @@ helm_build:
     - helm dependency build $CHART_PATH
     - helm package $CHART_PATH
     - helm cm-push $CI_PROJECT_DIR/$SOLUTION_NAME-0.1.0.tgz $CHART
-    
 
+deploy-job:
+  image: $HELM_IMAGE
+  stage: deploy
+  script:
+    - echo "Kuber task is running"
+  tags:
+    - kuber
