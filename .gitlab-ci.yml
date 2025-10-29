@@ -22,7 +22,7 @@ variables:
   DOTNET_IMAGE: mcr.microsoft.com/dotnet/sdk:8.0
   EXECUTABLE_PROJECT_PREFIX: WebHost
   DEFAULT_CHART_FILE_NAME: Chart.yaml
-  HELM_IMAGE: okteto/helm:3.16.2-amd64
+  HELM_IMAGE: oleggolen/helm
   DOCKER_RUNNER_TAG: docker
   CHART: grade-book-microservice
   
