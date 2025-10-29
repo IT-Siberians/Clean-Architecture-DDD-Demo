@@ -22,7 +22,7 @@ variables:
   DOTNET_IMAGE: mcr.microsoft.com/dotnet/sdk:8.0
   EXECUTABLE_PROJECT_PREFIX: WebHost
   DEFAULT_CHART_FILE_NAME: Chart.yaml
-  HELM_IMAGE: okteto/helm:3.16.2
+  HELM_IMAGE: okteto/helm:3.16.2-amd64
   DOCKER_RUNNER_TAG: docker
   CHART: grade-book-microservice
   
@@ -79,6 +79,9 @@ docker-build:
 helm-validate:
   stage: containerize
   image: $HELM_IMAGE
+  before_script:
+    - docker pull --platform linux/amd64 okteto/helm:3.16.2
+    - docker tag okteto/helm:3.16.2 okteto/helm:3.16.2-amd64
   script:
     - helm dependency build $CHART_PATH
     - helm lint $CHART_PATH
@@ -87,6 +90,8 @@ helm-build:
   image: $HELM_IMAGE
   stage: containerize
   before_script:
+    - docker pull --platform linux/amd64 okteto/helm:3.16.2
+    - docker tag okteto/helm:3.16.2 okteto/helm:3.16.2-amd64
     - helm plugin install https://github.com/chartmuseum/helm-push
     - >
       helm repo add ${CHART}
