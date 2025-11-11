@@ -1,14 +1,7 @@
-# This file is a template, and might need editing before it works on your project.
-# To contribute improvements to CI/CD templates, please follow the Development guide at:
-# https://docs.gitlab.com/ee/development/cicd/templates.html
-# This specific template is located at:
-# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Docker.gitlab-ci.yml
-
-# Build a Docker image with CI/CD and push to the GitLab registry.
-# Docker-in-Docker documentation: https://docs.gitlab.com/ee/ci/docker/using_docker_build.html
-#
-# This template uses one generic job with conditional builds
-# for the default branch and all other (MR) branches.
+include: 
+  - ./.deploy/CI/dotnet.yml
+  - ./.deploy/CI/docker.yml
+  - ./.deploy/CI/helm.yml
 stages:
   - build
   - test
@@ -19,83 +12,34 @@ variables:
   SOLUTION_NAME: GradeBookMicroservice
   SOLUTION_FOLDER: ./src
   SOLUTION_PATH: $SOLUTION_FOLDER/$SOLUTION_NAME.sln
-  DOTNET_IMAGE: mcr.microsoft.com/dotnet/sdk:8.0
   EXECUTABLE_PROJECT_PREFIX: WebHost
-  DEFAULT_CHART_FILE_NAME: Chart.yaml
-  HELM_IMAGE: oleggolen/helm
-  DOCKER_RUNNER_TAG: docker
   CHART: grade-book-microservice
   
-build:
+build-job:
   stage: build
-  image: $DOTNET_IMAGE
-  script:
-    - dotnet build $SOLUTION_PATH
-  rules:
-    - changes: 
-      - $SOLUTION_FOLDER/*
+  extends: .build-application-part
 
-test:
+test-job:
   stage: test
-  image: $DOTNET_IMAGE
+  extends: .dotnet-code-action
   script:
     - dotnet test $SOLUTION_PATH
-  rules:
-    - changes: 
-      - $SOLUTION_FOLDER/*
 
-
-
-docker-build:
-  # Use the official docker image.
-  image: docker:cli
-  stage: containerize
-  services:
-    - docker:dind
+docker-build-job:
   variables:
-    DOCKER_IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-  # All branches are tagged with $DOCKER_IMAGE_NAME (defaults to commit ref slug)
-  # Default branch is also tagged with `latest`
-  script:
-    - docker build --pull -t "$DOCKER_IMAGE_NAME" --build-arg ProjectPath=$SOLUTION_FOLDER --build-arg SiteName=$SOLUTION_NAME.$EXECUTABLE_PROJECT_PREFIX .
-    - docker push "$DOCKER_IMAGE_NAME"
-    - |
-      if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
-        docker tag "$DOCKER_IMAGE_NAME" "$CI_REGISTRY_IMAGE:latest"
-        docker push "$CI_REGISTRY_IMAGE:latest"
-      fi
-
-  # Run this job in a branch where a Dockerfile exists
-  rules:
-    - if: $CI_COMMIT_BRANCH
-      exists:
-        - Dockerfile
-    - changes: 
-      - $SOLUTION_FOLDER/*
-      - Dockerfile
+    DOCKERFILE_PATH: src/Presentation/GradeBookMicroservice.WebHost/Dockerfile
+    SITE_NAME: $SOLUTION_NAME.$EXECUTABLE_PROJECT_PREFIX
+    PROJECT_PATH: $SOLUTION_FOLDER
+    DOCKER_IMAGE_NAME: $DOCKER_IMAGE_NAME
+  extends: .docker-image-build
 
 helm-validate:
   stage: containerize
-  image: $HELM_IMAGE
-  script:
-    - helm dependency build $CHART_PATH
-    - helm lint $CHART_PATH
+  extends: .helm-validate
 
 helm-build:
-  image: $HELM_IMAGE
   stage: containerize
-  before_script:
-    - helm plugin install https://github.com/chartmuseum/helm-push
-    - >
-      helm repo add ${CHART}
-      --username ${CI_REGISTRY_USER}
-      --password ${CI_REGISTRY_PASSWORD}
-      ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/helm/stable
-  needs:
-    - helm-validate
-  script:
-    - helm dependency build $CHART_PATH
-    - helm package $CHART_PATH
-    - helm cm-push $CI_PROJECT_DIR/$SOLUTION_NAME-0.1.0.tgz $CHART
+  variables:
+    CHART: $CHART
+    SOLUTION_NAME: $SOLUTION_NAME
+  extends: .helm-build

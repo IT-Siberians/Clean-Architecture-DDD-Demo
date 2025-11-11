@@ -1,0 +1,16 @@
+.dotnet-code-action:
+  variables:
+    PROJECT_PATH: "./src"
+    DOTNET_IMAGE: mcr.microsoft.com/dotnet/sdk:8.0
+  image: $DOTNET_IMAGE
+  before_script:
+    - cd $PROJECT_PATH
+  rules:
+    - changes: 
+      - $PROJECT_PATH/*
+
+.build-application-part:
+  extends: .dotnet-code-action
+  stage: build
+  script:
+    - dotnet build

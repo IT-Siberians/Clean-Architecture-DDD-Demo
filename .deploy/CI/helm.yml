@@ -1,0 +1,33 @@
+.helm-stage:
+  variables:
+    HELM_IMAGE: oleggolen/helm
+    CHART_PATH: ""
+  image: HELM_IMAGE
+
+
+.helm-validate:
+  extends: .helm_stage
+  script:
+    - helm dependency build $CHART_PATH
+    - helm lint $CHART_PATH
+
+.helm-build:
+  image: $HELM_IMAGE
+  extends: .helm-stage
+  variables:
+    CHART: ""
+    SOLUTION_NAME: ""
+    HELM_VALIDATE_JOB_NAME: helm-validate-job
+  before_script:
+    - helm plugin install https://github.com/chartmuseum/helm-push
+    - >
+      helm repo add ${CHART}
+      --username ${CI_REGISTRY_USER}
+      --password ${CI_REGISTRY_PASSWORD}
+      ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/helm/stable
+  needs:
+    - $HELM_VALIDATE_JOB_NAME
+  script:
+    - helm dependency build $CHART_PATH
+    - helm package $CHART_PATH
+    - helm cm-push $CI_PROJECT_DIR/$SOLUTION_NAME-0.1.0.tgz $CHART
